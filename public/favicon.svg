@@ -1,0 +1,6 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 64 64" role="img" aria-label="Annie B Wellness">
+  <rect width="64" height="64" rx="16" fill="#00292D"/>
+  <path d="M31 50c1-17 7-28 20-35-1 14-7 24-20 35Z" fill="#C3DB5F"/>
+  <path d="M29 50C28 34 22 24 11 18c0 13 5 23 18 32Z" fill="#C2D6C8"/>
+  <path d="M31 50c0-10 0-20 2-29" fill="none" stroke="#F9F4EE" stroke-width="2.5" stroke-linecap="round"/>
+</svg>
