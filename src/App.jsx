@@ -1,21 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, NavLink, Route, Routes, useLocation } from 'react-router-dom';
-import {
-  ArrowRight,
-  ArrowUpRight,
-  BookOpen,
-  Check,
-  ChevronRight,
-  Droplets,
-  Heart,
-  Camera,
-  Leaf,
-  Menu,
-  Podcast,
-  Sparkles,
-  Sprout,
-  X,
-} from 'lucide-react';
+import { ArrowRight, ArrowUpRight, Menu, X } from 'lucide-react';
 
 const navItems = [
   { label: 'Home', to: '/' },
@@ -25,10 +10,10 @@ const navItems = [
 ];
 
 const pageTitles = {
-  '/': 'Paired Wellness | Faith, Gut Health & Clean Skincare',
+  '/': 'Paired Wellness | Restore the Gut. Support the Skin.',
   '/about': 'About Annie | Paired Wellness',
-  '/skincare': 'Clean Skincare | Paired Wellness',
-  '/guides': 'Wellness Guides | Paired Wellness',
+  '/skincare': 'Skincare | Paired Wellness',
+  '/guides': 'Guides | Paired Wellness',
 };
 
 function ScrollManager() {
@@ -42,26 +27,14 @@ function ScrollManager() {
   return null;
 }
 
-function PearMark({ small = false }) {
+function PearSketch({ className = '' }) {
   return (
-    <svg className={small ? 'pear-mark pear-mark-small' : 'pear-mark'} viewBox="0 0 64 76" aria-hidden="true">
-      <path d="M39 18c4-8 11-11 18-10-2 8-7 13-17 14" className="pear-leaf" />
-      <path d="M35 20c-1-8 1-14 5-18" className="pear-stem" />
-      <path d="M32 18c-11 0-15 11-17 19C12 49 5 55 8 64c3 9 14 12 24 12s21-3 24-12c3-9-4-15-7-27-2-8-6-19-17-19Z" className="pear-fruit" />
+    <svg className={`pear-sketch ${className}`} viewBox="0 0 118 104" aria-hidden="true">
+      <path d="M68 29c1-12 8-21 21-27M70 26c15-8 30-5 41 6-16 7-29 4-41-6Z" />
+      <path d="M63 31c-14-8-29-7-39 4 16 5 28 3 39-4Z" />
+      <path d="M65 31C48 24 36 38 31 52 26 68 15 76 20 89c6 15 25 14 43 12 18-2 36-5 38-21 2-13-10-19-18-33-7-12-11-15-18-16Z" />
+      <path d="M32 62c12-5 30-3 43 7M41 45c5 1 9 3 13 7M77 42c-3 6-3 12-1 18" />
     </svg>
-  );
-}
-
-function Announcement() {
-  return (
-    <div className="announcement">
-      <div className="shell announcement-inner">
-        <span>Body + soul · root + fruit · faith + practice</span>
-        <a href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">
-          Follow Annie <ArrowUpRight size={14} aria-hidden="true" />
-        </a>
-      </div>
-    </div>
   );
 }
 
@@ -72,114 +45,91 @@ function Header() {
   useEffect(() => setOpen(false), [pathname]);
 
   return (
-    <>
-      <Announcement />
-      <header className="site-header">
-        <div className="shell nav-shell">
-          <Link to="/" className="wordmark" aria-label="Paired Wellness home">
-            <PearMark small />
-            <span className="wordmark-copy">
-              <span className="wordmark-main">Paired</span>
-              <span className="wordmark-sub">WELLNESS</span>
-            </span>
-          </Link>
+    <header className="site-header">
+      <div className="shell header-row">
+        <Link to="/" className="header-brand" aria-label="Paired Wellness home">
+          <PearSketch />
+          <span><strong>Paired</strong><small>WELLNESS</small></span>
+        </Link>
 
-          <nav className="desktop-nav" aria-label="Primary navigation">
-            {navItems.map((item) => (
-              <NavLink
-                key={item.to}
-                to={item.to}
-                className={({ isActive }) => (isActive ? 'active' : undefined)}
-              >
-                {item.label}
-              </NavLink>
-            ))}
-          </nav>
-
-          <a
-            className="nav-cta desktop-cta"
-            href="https://linktr.ee/anniebdenome"
-            target="_blank"
-            rel="noreferrer"
-          >
-            Start here <ArrowUpRight size={15} aria-hidden="true" />
+        <nav className="desktop-nav" aria-label="Primary navigation">
+          {navItems.map((item) => (
+            <NavLink key={item.to} to={item.to} className={({ isActive }) => (isActive ? 'active' : '')}>
+              {item.label}
+            </NavLink>
+          ))}
+          <a href="https://linktr.ee/anniebdenome" target="_blank" rel="noreferrer">
+            Start here <ArrowUpRight size={13} />
           </a>
+        </nav>
 
-          <button
-            className="menu-toggle"
-            type="button"
-            aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
-            aria-expanded={open}
-            onClick={() => setOpen((value) => !value)}
-          >
-            {open ? <X /> : <Menu />}
-          </button>
-        </div>
+        <button
+          className="menu-toggle"
+          type="button"
+          aria-expanded={open}
+          aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
+          onClick={() => setOpen((value) => !value)}
+        >
+          {open ? <X size={21} /> : <Menu size={21} />}
+        </button>
+      </div>
 
-        {open && (
-          <nav className="mobile-nav shell" aria-label="Mobile navigation">
-            {navItems.map((item) => (
-              <NavLink key={item.to} to={item.to}>
-                {item.label} <ChevronRight size={18} aria-hidden="true" />
-              </NavLink>
-            ))}
-            <a href="https://linktr.ee/anniebdenome" target="_blank" rel="noreferrer">
-              Start here <ArrowUpRight size={18} aria-hidden="true" />
-            </a>
-          </nav>
-        )}
-      </header>
-    </>
+      {open && (
+        <nav className="mobile-nav shell" aria-label="Mobile navigation">
+          {navItems.map((item) => <NavLink key={item.to} to={item.to}>{item.label}</NavLink>)}
+          <a href="https://linktr.ee/anniebdenome" target="_blank" rel="noreferrer">Start here</a>
+        </nav>
+      )}
+    </header>
+  );
+}
+
+function SectionLabel({ children }) {
+  return <p className="section-label">{children}</p>;
+}
+
+function EditorialLink({ to, children, external = false, className = '' }) {
+  const content = <>{children}<ArrowRight size={15} aria-hidden="true" /></>;
+  const classes = `editorial-link ${className}`.trim();
+
+  if (external) {
+    return <a className={classes} href={to} target="_blank" rel="noreferrer">{content}</a>;
+  }
+  return <Link className={classes} to={to}>{content}</Link>;
+}
+
+function Figure({ src, alt, caption, className = '', grayscale = false }) {
+  return (
+    <figure className={`editorial-figure ${className}${grayscale ? ' grayscale' : ''}`}>
+      <img src={src} alt={alt} />
+      {caption && <figcaption>{caption}</figcaption>}
+    </figure>
   );
 }
 
 function Footer() {
   return (
     <footer className="site-footer">
-      <div className="shell footer-grid">
-        <div className="footer-brand">
-          <Link to="/" className="wordmark footer-wordmark">
-            <PearMark small />
-            <span className="wordmark-copy">
-              <span className="wordmark-main">Paired</span>
-              <span className="wordmark-sub">WELLNESS</span>
-            </span>
-          </Link>
-          <p>Christ-centered encouragement for clear direction, healthy rhythms, and whole-person stewardship.</p>
-          <a
-            className="social-link"
-            href="https://www.instagram.com/her.holy.terrain/"
-            target="_blank"
-            rel="noreferrer"
-          >
-            <Camera size={18} aria-hidden="true" /> @her.holy.terrain
-          </a>
+      <div className="shell contact-layout">
+        <div className="contact-copy">
+          <SectionLabel>Contact</SectionLabel>
+          <h2>Get in Touch</h2>
+          <div className="contact-details">
+            <p><span>Email</span><a href="mailto:annie@healthinthespirit.com">annie@healthinthespirit.com</a></p>
+            <p><span>Socials</span><a href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">@her.holy.terrain</a></p>
+            <p><span>Listen</span><a href="https://healthinthespirit.com/" target="_blank" rel="noreferrer">Health in the Spirit</a></p>
+          </div>
         </div>
-
-        <div className="footer-links">
-          <span className="footer-label">Explore</span>
-          {navItems.map((item) => (
-            <Link key={item.to} to={item.to}>{item.label}</Link>
-          ))}
-        </div>
-
-        <div className="footer-links">
-          <span className="footer-label">Connect</span>
-          <a href="https://healthinthespirit.com/" target="_blank" rel="noreferrer">Health in the Spirit</a>
-          <a href="mailto:annie@healthinthespirit.com">Email Annie</a>
-          <a href="https://linktr.ee/anniebdenome" target="_blank" rel="noreferrer">Annie’s links</a>
-        </div>
-
-        <div className="footer-note">
-          <span className="footer-label">A gentle note</span>
-          <p>
-            This site is for education and encouragement. It does not diagnose, treat, or replace care from your qualified clinician.
-          </p>
-        </div>
+        <Figure
+          src="/annie/annie-staircase.jpg"
+          alt="Annie DeNome seated on a staircase"
+          caption="Come as you are."
+          className="contact-photo"
+        />
       </div>
       <div className="shell footer-bottom">
         <span>© {new Date().getFullYear()} Paired Wellness</span>
-        <span>Made to nourish body + soul</span>
+        <span>Education and encouragement—not diagnosis or treatment.</span>
       </div>
     </footer>
   );
@@ -196,191 +146,125 @@ function Layout({ children }) {
   );
 }
 
-function Eyebrow({ children, light = false }) {
-  return <p className={`eyebrow${light ? ' eyebrow-light' : ''}`}>{children}</p>;
-}
-
-function TextLink({ to, children, external = false, light = false }) {
-  const className = `text-link${light ? ' text-link-light' : ''}`;
-  const content = <>{children} <ArrowRight size={17} aria-hidden="true" /></>;
-
-  if (external) {
-    return <a className={className} href={to} target="_blank" rel="noreferrer">{content}</a>;
-  }
-  return <Link className={className} to={to}>{content}</Link>;
-}
-
 function Home() {
   return (
     <>
-      <section className="hero home-hero">
-        <div className="shell hero-grid">
-          <div className="hero-copy reveal">
-            <Eyebrow>Body + Soul • Root + Fruit</Eyebrow>
-            <h1>
-              Wellness, rooted in the <em>One who made you.</em>
-            </h1>
-            <p className="hero-lead">
-              I’m Annie—a theologian, wellness advocate, and woman who spent more than a decade asking why. Now I help women move from guessing to grounded next steps for their skin, gut, and whole-person health.
+      <section className="home-masthead">
+        <div className="shell masthead-grid">
+          <div className="masthead-copy reveal">
+            <PearSketch className="masthead-sketch" />
+            <h1>Paired<br />Wellness</h1>
+            <p className="masthead-tagline">Restore the gut. Support the skin.</p>
+            <p>
+              Root-cause wellness for the body and soul—grounded in faith, attentive to the whole person, and built for real life.
             </p>
-            <div className="button-row">
-              <Link className="button button-primary" to="/about">
-                Meet Annie <ArrowRight size={17} aria-hidden="true" />
-              </Link>
-              <Link className="button button-ghost" to="/guides">Browse guides</Link>
-            </div>
-            <div className="trust-row" aria-label="Paired Wellness focus areas">
-              <span><Check size={15} aria-hidden="true" /> Root-cause focused</span>
-              <span><Check size={15} aria-hidden="true" /> Christ-centered</span>
-              <span><Check size={15} aria-hidden="true" /> No shame, no guessing</span>
+            <div className="masthead-actions">
+              <EditorialLink to="/about">Meet Annie</EditorialLink>
+              <EditorialLink to="/guides">Explore guides</EditorialLink>
             </div>
           </div>
-
-          <div className="hero-visual paired-visual reveal delay-1">
-            <div className="botanical-hero-card">
-              <img src="/botanical/paired-pear-hero.jpg" alt="Fresh pears resting on striped linen in a sunlit orchard" />
-            </div>
-            <div className="founder-glass-card">
-              <img src="/annie-denome-portrait.webp" alt="Annie DeNome, founder of Paired Wellness" />
-              <span><strong>Meet Annie</strong> Founder + storyteller</span>
-            </div>
-            <div className="hero-stamp glass-pill">
-              <PearMark small />
-              <span>BODY + SOUL</span>
-            </div>
-            <div className="hero-orbit" aria-hidden="true" />
-          </div>
+          <Figure
+            src="/botanical/paired-pear-hero.jpg"
+            alt="Fresh pears in a quiet natural setting"
+            caption="The Paired Wellness Method"
+            className="masthead-figure reveal delay-1"
+          />
         </div>
-        <div className="paper-line" aria-hidden="true" />
       </section>
 
-      <section className="pathways section-pad">
+      <section className="editorial-band bio-band">
+        <div className="shell bio-feature">
+          <Figure
+            src="/annie-denome-portrait.webp"
+            alt="Portrait of Annie DeNome"
+            className="bio-portrait"
+            grayscale
+          />
+          <div className="bio-feature-copy">
+            <SectionLabel>Bio</SectionLabel>
+            <h2>Health Restoration<br />with <em>Annie DeNome</em></h2>
+            <p>
+              I spent over a decade searching for answers to acne, bloating, brain fog, and painful cycles. Paired Wellness is where that story becomes steady, Christ-centered guidance for women who are ready to ask better questions.
+            </p>
+            <blockquote>Nothing changed fast or alone. Everything changed when the whole story mattered.</blockquote>
+            <EditorialLink to="/about">Read Annie’s story</EditorialLink>
+          </div>
+          <Figure
+            src="/annie-ryan-formal.webp"
+            alt="Annie and Ryan DeNome, hosts of Health in the Spirit"
+            caption="Health in the Spirit"
+            className="bio-secondary"
+            grayscale
+          />
+        </div>
+      </section>
+
+      <section className="editorial-band method-band">
         <div className="shell">
-          <div className="section-heading split-heading">
-            <div>
-              <Eyebrow>A place to begin</Eyebrow>
-              <h2>What is your body asking you to notice?</h2>
-            </div>
-            <p>
-              Symptoms are not a moral failure. They are information. Let’s slow down, look at the whole picture, and make the next faithful choice.
-            </p>
+          <div className="method-heading">
+            <h2>Restore <em>the gut</em></h2>
+            <p>Start with the connected story rather than one isolated symptom.</p>
           </div>
 
-          <div className="pathway-grid">
-            <Link to="/guides" className="pathway-card lime-card">
-              <span className="card-number">01</span>
-              <Sparkles aria-hidden="true" />
-              <h3>Acne that keeps returning</h3>
-              <p>Look beyond the surface and learn the questions that helped Annie stop chasing one more quick fix.</p>
-              <span className="card-arrow"><ArrowUpRight aria-hidden="true" /></span>
-            </Link>
-            <Link to="/guides" className="pathway-card green-card">
-              <span className="card-number">02</span>
-              <Leaf aria-hidden="true" />
-              <h3>Gut health that feels confusing</h3>
-              <p>Build a calmer, more connected understanding of bloating, digestion, rhythms, and everyday foundations.</p>
-              <span className="card-arrow"><ArrowUpRight aria-hidden="true" /></span>
-            </Link>
-            <Link to="/skincare" className="pathway-card cream-card">
-              <span className="card-number">03</span>
-              <Droplets aria-hidden="true" />
-              <h3>A cleaner skincare routine</h3>
-              <p>Choose products with more intention—without turning your bathroom into another source of fear or perfectionism.</p>
-              <span className="card-arrow"><ArrowUpRight aria-hidden="true" /></span>
-            </Link>
-          </div>
-        </div>
-      </section>
-
-      <section className="root-story dark-section section-pad">
-        <div className="shell story-grid">
-          <div className="story-image-wrap">
-            <img src="/annie-ryan-formal.webp" alt="Annie and Ryan DeNome, hosts of Health in the Spirit" />
-            <span className="image-caption">Annie + Ryan • Health in the Spirit</span>
-          </div>
-          <div className="story-copy">
-            <Eyebrow light>My story</Eyebrow>
-            <h2>“Our God is not a symptom God. He’s a root cause God.”</h2>
-            <p>
-              For years, I prayed for relief from cystic acne, painful bloating, constipation, and brain fog. I tried creams, food rules, antibiotics, and every new idea I could find. What changed was not one miracle product. It was finally seeing that the symptoms belonged to one story.
-            </p>
-            <p>
-              Prayer stayed at the center. Better questions, comprehensive testing, daily consistency, and clean swaps gave that prayer a practical path forward.
-            </p>
-            <TextLink to="/about" light>Read Annie’s story</TextLink>
-          </div>
-        </div>
-      </section>
-
-      <section className="fresh-section section-pad">
-        <div className="shell fresh-grid">
-          <div className="fresh-editorial">
-            <div className="editorial-rule" aria-hidden="true" />
-            <Eyebrow>Fresh perspective</Eyebrow>
-            <h2>never designed <em>to be fresh</em></h2>
-            <p>
-              We understand that fresh food carries a different kind of life. Annie’s skincare philosophy asks a simple question: why would the skin be separate from the rest of you?
-            </p>
-            <TextLink to="/skincare">Explore Annie’s skincare philosophy</TextLink>
-          </div>
-          <div className="fresh-cards">
-            <article className="mini-feature">
-              <span>Clean beauty</span>
-              <h3>Crunchi</h3>
-              <p>High-performing skincare and makeup with an ingredient-conscious approach.</p>
-              <a href="https://crunchi.com/?als=AnnieDeNome" target="_blank" rel="noreferrer">
-                Shop Annie’s link <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
+          <div className="method-grid">
+            <article className="method-item method-item-one">
+              <span className="editorial-number">01</span>
+              <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan in conversation" />
+              <h3>Ask better questions</h3>
+              <p>Skin, digestion, hormones, stress, sleep, and spiritual life deserve to be understood together.</p>
             </article>
-            <article className="mini-feature mini-feature-dark">
-              <span>Founding Partner</span>
-              <h3>RINGANA</h3>
-              <p>Fresh skincare at the center of Annie’s newest clean-beauty partnership.</p>
-              <a href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">
-                Ask Annie about RINGANA <ArrowUpRight size={16} aria-hidden="true" />
-              </a>
+            <article className="method-item method-item-two">
+              <span className="editorial-number">02</span>
+              <div className="method-type-panel">
+                <span>root + rhythm</span>
+                <strong>Notice patterns before chasing perfection.</strong>
+              </div>
+              <p>Simple foundations create a steadier place from which to choose testing, support, and daily habits.</p>
+            </article>
+            <article className="method-item method-item-three">
+              <span className="editorial-number">03</span>
+              <div className="method-type-panel pale">
+                <span>faith + practice</span>
+                <strong>Let prayer shape the pace of healing.</strong>
+              </div>
+              <p>Stewardship is faithful attention—not control, shame, or fear.</p>
             </article>
           </div>
+
+          <div className="support-skin-heading">
+            <h2>Support <em>the skin</em></h2>
+            <p>Clean products on the outside. Root-cause work on the inside.</p>
+          </div>
         </div>
       </section>
 
-      <section className="guides-preview section-pad">
-        <div className="shell">
-          <div className="section-heading centered-heading">
-            <Eyebrow>Guides are growing</Eyebrow>
-            <h2>Clear help for the questions you keep carrying.</h2>
-            <p>The first Paired Wellness guides are being written now. Here is what is coming.</p>
+      <section className="orchard-story">
+        <div className="shell orchard-grid">
+          <blockquote>“The body is not an interruption to the spiritual life. It is part of the gift we are learning to steward.”</blockquote>
+          <Figure src="/botanical/paired-orchard-wide.jpg" alt="A quiet pear orchard in warm light" className="orchard-wide" />
+          <Figure src="/botanical/paired-pear-hero.jpg" alt="Pears gathered in natural light" className="orchard-tall" />
+          <div className="orchard-copy">
+            <SectionLabel>The Paired Wellness Method</SectionLabel>
+            <p>Body and soul. Root and fruit. Faith and practice. The most useful next step is usually the one that honors both sides of the pair.</p>
           </div>
-          <div className="guide-strip">
-            {[
-              ['Acne Clarity', 'Skin is a messenger—not the enemy.'],
-              ['Clean Skincare', 'A calmer way to read labels and make swaps.'],
-              ['Gut Foundations', 'Start with rhythms before chasing perfection.'],
-            ].map(([title, text], index) => (
-              <article key={title} className="guide-preview-card">
-                <span>0{index + 1}</span>
-                <BookOpen aria-hidden="true" />
-                <h3>{title}</h3>
-                <p>{text}</p>
-                <small>COMING SOON</small>
-              </article>
-            ))}
-          </div>
-          <div className="center-link"><TextLink to="/guides">See all guide topics</TextLink></div>
         </div>
       </section>
 
-      <section className="podcast-banner">
-        <div className="shell podcast-inner">
-          <div className="podcast-mark"><Podcast aria-hidden="true" /></div>
-          <div>
-            <Eyebrow light>Listen at the kitchen table</Eyebrow>
-            <h2>Health in the Spirit</h2>
-            <p>A Catholic health and wellness podcast with Annie and Dr. Ryan DeNome—rooted in Saints, Scripture, and the Catechism.</p>
+      <section className="editorial-band guide-feature">
+        <div className="shell guide-feature-grid">
+          <Figure
+            src="/annie-denome-portrait.webp"
+            alt="Annie DeNome, wellness educator and guide"
+            className="guide-feature-photo"
+          />
+          <div className="guide-feature-copy">
+            <SectionLabel>Your trail guide</SectionLabel>
+            <h2>I’ll help you find the next faithful step.</h2>
+            <p>
+              Paired Wellness is not a prescription or a promise. It is a growing library of clear explanations, thoughtful questions, and practical starting points for acne, gut health, clean skincare, and everyday stewardship.
+            </p>
+            <EditorialLink to="/guides">Preview the guide library</EditorialLink>
           </div>
-          <a className="button button-light" href="https://healthinthespirit.com/" target="_blank" rel="noreferrer">
-            Listen now <ArrowUpRight size={17} aria-hidden="true" />
-          </a>
         </div>
       </section>
     </>
@@ -388,118 +272,70 @@ function Home() {
 }
 
 function About() {
-  const beliefs = [
-    ['Jesus first', 'Healing is never reduced to a protocol. Prayer, surrender, and the person of Jesus remain at the center.'],
-    ['Whole-person context', 'Skin, gut, hormones, habits, emotions, relationships, and spiritual life are not separate compartments.'],
-    ['Patient consistency', 'Lasting change is usually quieter than a quick fix. Small faithful choices matter more than perfect streaks.'],
+  const journey = [
+    ['01', 'The long guessing season', 'Acne began around age ten. Bloating, constipation, painful cycles, and brain fog followed. Food rules, creams, antibiotics, and new routines kept promising an answer.'],
+    ['02', 'The questions changed', 'Comprehensive testing helped connect patterns that had been treated as isolated symptoms. The work shifted from throwing things at the surface to understanding context.'],
+    ['03', 'The cross became a doorway', 'Prayer, clean products, gut support, and consistent habits became part of a slow healing story—one Annie now uses to make another woman’s path feel less lonely.'],
   ];
 
   return (
     <>
-      <section className="page-hero about-hero">
-        <div className="shell page-hero-grid">
-          <div className="page-hero-copy">
-            <Eyebrow>Meet Annie DeNome</Eyebrow>
-            <h1>This was never only about <em>clear skin.</em></h1>
-            <p>
-              It is about becoming more present to your life, more confident in the body God gave you, and more able to use your gifts with freedom.
-            </p>
+      <section className="page-intro">
+        <div className="shell page-intro-grid">
+          <div>
+            <SectionLabel>About Annie</SectionLabel>
+            <h1>Health restoration with <em>Annie DeNome.</em></h1>
+            <p>This was never only about clear skin. It is about becoming more present to your life, more confident in the body God gave you, and more able to use your gifts with freedom.</p>
           </div>
-          <div className="about-portrait-card">
-            <img src="/annie-denome-portrait.webp" alt="Portrait of Annie DeNome" />
-            <div>
-              <span>THEOLOGY + PSYCHOLOGY</span>
-              <strong>ROOT-CAUSE WELLNESS ADVOCATE</strong>
-            </div>
-          </div>
+          <Figure src="/annie-denome-portrait.webp" alt="Portrait of Annie DeNome" caption="Theology + Psychology • Root-cause wellness" className="page-intro-image" grayscale />
         </div>
       </section>
 
-      <section className="bio-section section-pad">
-        <div className="shell bio-grid">
+      <section className="editorial-band about-story">
+        <div className="shell prose-grid">
           <div>
-            <Eyebrow>A little more of the story</Eyebrow>
-            <h2>Thoughtful by training. Hopeful by grace. Practical by necessity.</h2>
+            <SectionLabel>A little more of the story</SectionLabel>
+            <h2>Thoughtful by training.<br />Hopeful by grace.<br /><em>Practical by necessity.</em></h2>
           </div>
           <div className="long-copy">
-            <p className="drop-cap">
-              Annie is an Owensboro, Kentucky native, lifelong swimmer and triathlete, theologian, wife, and mom. Straight out of high school, she spent a year traveling the country with NET Ministries, sharing the Gospel with young people in parish halls, school gyms, and everywhere in between.
-            </p>
-            <p>
-              At Franciscan University of Steubenville, she double-majored in Theology and Psychology—a combination that still shapes how she sees health: the interior life matters, the body matters, and neither one flourishes in isolation.
-            </p>
-            <p>
-              Today, her work and advocacy bridge faith with practical human development. Through Paired Wellness, she is turning a decade-long struggle with acne and gut symptoms into clear, compassionate education for women who are tired of guessing.
-            </p>
+            <p>Annie is an Owensboro, Kentucky native, lifelong swimmer and triathlete, theologian, wife, and mom. Straight out of high school, she spent a year traveling the country with NET Ministries, sharing the Gospel with young people.</p>
+            <p>At Franciscan University of Steubenville, she double-majored in Theology and Psychology—a pairing that still shapes how she sees health: the interior life matters, the body matters, and neither one flourishes in isolation.</p>
+            <p>Today, Paired Wellness turns a decade-long struggle with acne and gut symptoms into clear, compassionate education for women who are tired of guessing.</p>
           </div>
         </div>
       </section>
 
-      <section className="journey-section section-pad">
+      <section className="journey-section">
         <div className="shell">
-          <div className="section-heading centered-heading narrow-heading">
-            <Eyebrow>The root-cause journey</Eyebrow>
-            <h2>What looked like separate problems was one connected story.</h2>
+          <div className="section-title-row">
+            <h2>The root-cause journey</h2>
+            <p>What looked like separate problems was one connected story.</p>
           </div>
-          <div className="journey-grid">
-            <article>
-              <span className="journey-number">01</span>
-              <h3>The long guessing season</h3>
-              <p>Acne began around age ten. Bloating, constipation, painful cycles, and brain fog followed. Food rules, creams, antibiotics, and new routines kept promising an answer.</p>
-            </article>
-            <article>
-              <span className="journey-number">02</span>
-              <h3>The questions changed</h3>
-              <p>Comprehensive testing helped connect patterns that had been treated as isolated symptoms. The work shifted from throwing things at the surface to understanding context.</p>
-            </article>
-            <article>
-              <span className="journey-number">03</span>
-              <h3>The cross became a doorway</h3>
-              <p>Prayer, clean products, gut support, and consistent habits became part of a slow healing story—one Annie now uses to make another woman’s path feel less lonely.</p>
-            </article>
-          </div>
-        </div>
-      </section>
-
-      <section className="beliefs-section dark-section section-pad">
-        <div className="shell beliefs-grid">
-          <div className="beliefs-intro">
-            <Eyebrow light>What guides this work</Eyebrow>
-            <h2>Faith and health were never meant to be strangers.</h2>
-            <p>
-              Caring for the body is not vanity. It is stewardship—never an attempt to control every outcome, but a response to the gift already entrusted to us.
-            </p>
-          </div>
-          <div className="belief-list">
-            {beliefs.map(([title, text], index) => (
-              <article key={title}>
-                <span>0{index + 1}</span>
-                <div><h3>{title}</h3><p>{text}</p></div>
+          <div className="journey-list">
+            {journey.map(([number, title, text]) => (
+              <article key={number}>
+                <span>{number}</span>
+                <h3>{title}</h3>
+                <p>{text}</p>
               </article>
             ))}
           </div>
         </div>
       </section>
 
-      <section className="life-notes section-pad">
-        <div className="shell">
-          <div className="section-heading split-heading">
-            <div><Eyebrow>Beyond the wellness talk</Eyebrow><h2>The person behind the page.</h2></div>
-            <p>Annie brings the same energy to wellness that she brings to faith and family: practical, joyful, grounded, and always ready to dive in.</p>
+      <section className="faith-section">
+        <div className="shell faith-grid">
+          <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan DeNome" caption="Faith and health at the same table" className="faith-image" grayscale />
+          <div>
+            <SectionLabel>What guides this work</SectionLabel>
+            <h2>Faith and health were never meant to be strangers.</h2>
+            <p>Caring for the body is not vanity. It is stewardship—never an attempt to control every outcome, but a response to the gift already entrusted to us.</p>
+            <div className="belief-lines">
+              <p><span>01</span><strong>Jesus first</strong> Healing is never reduced to a protocol.</p>
+              <p><span>02</span><strong>Whole-person context</strong> Skin, gut, habits, emotions, relationships, and spiritual life belong to one person.</p>
+              <p><span>03</span><strong>Patient consistency</strong> Small faithful choices matter more than perfect streaks.</p>
+            </div>
           </div>
-          <div className="notes-grid">
-            <div><span>01</span><strong>Forever near the water</strong><p>A lifelong swimmer and triathlete who will choose the beach, pool, or creek bed every time.</p></div>
-            <div><span>02</span><strong>Family at the center</strong><p>Most sunny days are best spent outside with Ryan and their son, Joachim Giorgio.</p></div>
-            <div><span>03</span><strong>At the kitchen table</strong><p>Co-host of <em>Health in the Spirit</em>, where Catholic tradition and modern wellness share one conversation.</p></div>
-          </div>
-        </div>
-      </section>
-
-      <section className="simple-cta">
-        <div className="shell simple-cta-inner">
-          <Heart aria-hidden="true" />
-          <div><Eyebrow>Come as you are</Eyebrow><h2>You do not have to figure it all out today.</h2></div>
-          <Link className="button button-primary" to="/guides">Find a place to begin</Link>
         </div>
       </section>
     </>
@@ -509,110 +345,79 @@ function About() {
 function Skincare() {
   return (
     <>
-      <section className="page-hero skincare-hero">
-        <div className="shell skincare-hero-grid">
-          <div className="skincare-visual" aria-hidden="true">
-            <div className="bottle bottle-one" />
-            <div className="bottle bottle-two" />
-            <div className="bottle bottle-three" />
-            <Leaf className="skincare-leaf" />
-          </div>
-          <div className="page-hero-copy">
-            <Eyebrow>Clean beauty, calmer choices</Eyebrow>
+      <section className="page-intro skincare-intro">
+        <div className="shell page-intro-grid reverse">
+          <Figure src="/annie-denome-portrait.webp" alt="Annie DeNome" caption="Support the skin" className="page-intro-image skincare-annie" />
+          <div>
+            <SectionLabel>Clean beauty, calmer choices</SectionLabel>
             <h1>Skin is not separate from the <em>rest of you.</em></h1>
-            <p>
-              What you put on your skin should support the bigger work you are doing—not become one more cycle of fear, impulse, and disappointment.
-            </p>
-            <a className="button button-primary" href="#partners">Meet Annie’s partners <ArrowRight size={17} /></a>
+            <p>What you put on your skin should support the bigger work you are doing—not become one more cycle of fear, impulse, and disappointment.</p>
+            <EditorialLink to="#partners">Meet Annie’s partners</EditorialLink>
           </div>
         </div>
       </section>
 
-      <section className="inside-out section-pad">
-        <div className="shell inside-out-grid">
-          <div className="inside-out-title">
-            <Eyebrow>The inside + outside approach</Eyebrow>
-            <h2>Gut work on the inside. Clean products on the outside.</h2>
-          </div>
-          <div className="inside-out-copy">
-            <p>
-              Annie’s own before-and-after story was not built on skincare alone. Better root-cause direction helped her work on the internal patterns, while clean skincare and makeup helped calm the daily burden on the surface.
-            </p>
-            <p>
-              The goal here is not a “perfect” routine. It is an honest one: fewer guesses, ingredients you feel good about, and products that fit the season your skin is actually in.
-            </p>
-          </div>
-        </div>
-        <div className="shell principle-row">
-          <div><span>01</span><h3>Simplify first</h3><p>Before adding more, know what your routine already contains.</p></div>
-          <div><span>02</span><h3>Watch the whole story</h3><p>Skin may reflect sleep, stress, digestion, hormones, environment, and habits.</p></div>
-          <div><span>03</span><h3>Choose without fear</h3><p>Ingredient awareness should create clarity—not anxiety or perfectionism.</p></div>
-        </div>
-      </section>
-
-      <section id="partners" className="partners-section section-pad">
+      <section className="editorial-band skincare-method">
         <div className="shell">
-          <div className="section-heading centered-heading narrow-heading">
-            <Eyebrow>Products Annie partners with</Eyebrow>
-            <h2>Two clean-beauty paths, one intentional philosophy.</h2>
-            <p>Annie may earn from qualifying purchases made through her partner links. Her partnership is disclosed so you can choose with clarity.</p>
+          <div className="section-title-row">
+            <h2>Support <em>the skin</em></h2>
+            <p>Gut work on the inside. Clean products on the outside.</p>
           </div>
-
-          <div className="partner-grid">
-            <article className="partner-card crunchy-card">
-              <div className="partner-topline"><span>CLEAN SKINCARE + MAKEUP</span><Sparkles aria-hidden="true" /></div>
-              <h3>Crunchi</h3>
-              <p className="partner-tagline">High-performing beauty for the ingredient-conscious woman.</p>
-              <div className="partner-points">
-                <span><Check size={15} /> Skincare and color cosmetics</span>
-                <span><Check size={15} /> Annie’s established clean-beauty partner</span>
-                <span><Check size={15} /> Direct partner shopping link</span>
-              </div>
-              <a className="button button-dark" href="https://crunchi.com/?als=AnnieDeNome" target="_blank" rel="noreferrer">
-                Explore Crunchi <ArrowUpRight size={17} />
-              </a>
-            </article>
-
-            <article className="partner-card ringana-card">
-              <div className="partner-topline"><span>FRESH SKINCARE</span><Leaf aria-hidden="true" /></div>
-              <h3>RINGANA</h3>
-              <p className="partner-tagline">Annie’s newest partnership, centered on skincare made with a fresh-first mindset.</p>
-              <div className="partner-points">
-                <span><Check size={15} /> Annie is a Founding Partner</span>
-                <span><Check size={15} /> A “fresh matters” product philosophy</span>
-                <span><Check size={15} /> U.S. details and access rolling out</span>
-              </div>
-              <a className="button button-light" href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">
-                Ask Annie about RINGANA <ArrowUpRight size={17} />
-              </a>
-            </article>
+          <div className="skin-principles">
+            <article><span>01</span><h3>Simplify first</h3><p>Before adding more, know what your routine already contains.</p></article>
+            <article><span>02</span><h3>Watch the whole story</h3><p>Skin may reflect sleep, stress, digestion, hormones, environment, and habits.</p></article>
+            <article><span>03</span><h3>Choose without fear</h3><p>Ingredient awareness should create clarity—not anxiety or perfectionism.</p></article>
           </div>
         </div>
       </section>
 
-      <section className="fresh-manifesto section-pad">
-        <div className="shell manifesto-grid">
-          <div className="manifesto-title">
+      <section id="partners" className="partners-editorial">
+        <div className="shell">
+          <div className="section-title-row">
+            <h2>Products Annie partners with</h2>
+            <p>Annie may earn from qualifying purchases through her partner links. That relationship is disclosed so you can choose with clarity.</p>
+          </div>
+          <div className="partner-editorial-grid">
+            <article>
+              <span className="editorial-number">01</span>
+              <p className="overline">Clean skincare + makeup</p>
+              <h3>Crunchi</h3>
+              <p>High-performing skincare and color cosmetics for the ingredient-conscious woman.</p>
+              <EditorialLink to="https://crunchi.com/?als=AnnieDeNome" external>Explore Crunchi</EditorialLink>
+            </article>
+            <article>
+              <span className="editorial-number">02</span>
+              <p className="overline">Fresh skincare</p>
+              <h3>RINGANA</h3>
+              <p>Annie’s newest partnership, centered on skincare made with a fresh-first mindset. Annie is a Founding Partner.</p>
+              <EditorialLink to="https://www.instagram.com/her.holy.terrain/" external>Ask Annie about RINGANA</EditorialLink>
+            </article>
+            <Figure src="/botanical/paired-pear-hero.jpg" alt="Fresh pears in natural light" caption="Why fresh matters" className="partner-pear" />
+          </div>
+        </div>
+      </section>
+
+      <section className="editorial-band fresh-copy-section">
+        <div className="shell fresh-copy-grid">
+          <div className="fresh-words" aria-hidden="true">
             <span>FRESH PRODUCE</span><span>FRESH BREAD</span><span>FRESH COFFEE</span>
           </div>
-          <div className="manifesto-copy">
-            <Eyebrow>Why “fresh” matters to Annie</Eyebrow>
-            <h2>“We know instinctively that fresh means more.”</h2>
-            <p>
-              We accept that fresh food does not sit unchanged for years. Annie’s RINGANA message invites that same common sense into skincare: what feeds the skin matters, and freshness is worth asking about.
-            </p>
-            <p className="source-note">This reflects Annie’s personal skincare philosophy, not a promise of individual results.</p>
+          <div>
+            <SectionLabel>Why “fresh” matters to Annie</SectionLabel>
+            <h2>We know instinctively that <em>fresh means more.</em></h2>
+            <p>We accept that fresh food does not sit unchanged for years. Annie’s skincare philosophy invites that same common sense into the bathroom: what feeds the skin matters, and freshness is worth asking about.</p>
+            <p className="fine-note">This reflects Annie’s personal skincare philosophy, not a promise of individual results.</p>
           </div>
         </div>
       </section>
 
-      <section className="routine-section section-pad">
-        <div className="shell routine-grid">
-          <div className="routine-intro"><Eyebrow>A gentle routine reset</Eyebrow><h2>Before buying one more bottle, pause here.</h2></div>
+      <section className="routine-editorial">
+        <div className="shell">
+          <div className="section-title-row"><h2>Before buying one more bottle</h2><p>A gentle routine reset.</p></div>
           <ol className="routine-list">
-            <li><span>01</span><div><h3>Name your goal</h3><p>Are you trying to calm irritation, support the barrier, simplify makeup, or address a recurring pattern?</p></div></li>
-            <li><span>02</span><div><h3>Inventory what you use</h3><p>List every cleanser, serum, active, moisturizer, makeup product, and spot treatment before adding anything new.</p></div></li>
-            <li><span>03</span><div><h3>Change slowly</h3><p>One thoughtful swap is easier to understand than a complete overhaul you cannot evaluate.</p></div></li>
+            <li><span>01</span><div><h3>Name your goal</h3><p>Are you trying to calm irritation, support the barrier, simplify makeup, or understand a recurring pattern?</p></div></li>
+            <li><span>02</span><div><h3>Inventory what you use</h3><p>List each cleanser, serum, active, moisturizer, makeup product, and spot treatment before adding anything new.</p></div></li>
+            <li><span>03</span><div><h3>Change slowly</h3><p>One thoughtful swap is easier to understand than a complete overhaul.</p></div></li>
             <li><span>04</span><div><h3>Look beyond the bathroom</h3><p>If acne persists, skincare may be only one part of the conversation. Consider qualified support for the whole picture.</p></div></li>
           </ol>
         </div>
@@ -622,64 +427,57 @@ function Skincare() {
 }
 
 const guideTopics = [
-  { icon: Sparkles, label: 'ACNE', title: 'The Acne Clarity Guide', text: 'A whole-picture framework for the questions, patterns, and next steps that can sit underneath recurring breakouts.', accent: 'lime' },
-  { icon: Droplets, label: 'SKINCARE', title: 'The Clean Swap Guide', text: 'A less-overwhelming way to audit your routine, understand product roles, and make changes one at a time.', accent: 'cream' },
-  { icon: Leaf, label: 'GUT HEALTH', title: 'Gut Foundations', text: 'Simple explanations of digestion, regularity, food patterns, stress, and the everyday rhythms worth noticing first.', accent: 'green' },
-  { icon: Sprout, label: 'FOUNDATIONAL LABS', title: 'Test, Don’t Guess', text: 'Questions to bring to a qualified practitioner and plain-language context for common wellness conversations.', accent: 'ash' },
-  { icon: Heart, label: 'FAITH + RHYTHMS', title: 'Stewardship Without Striving', text: 'Prayerful routines for caring for the body without turning wellness into fear, control, or perfectionism.', accent: 'dark' },
-  { icon: BookOpen, label: 'EVERYDAY WELLNESS', title: 'The Simple Start Handbook', text: 'A practical workbook for choosing a focus, noticing progress, and building habits that can live in real family life.', accent: 'cream' },
+  ['01', 'Acne', 'The Acne Clarity Guide', 'A whole-picture framework for the questions and patterns that can sit underneath recurring breakouts.'],
+  ['02', 'Skincare', 'The Clean Swap Guide', 'A less-overwhelming way to audit your routine, understand product roles, and make changes one at a time.'],
+  ['03', 'Gut health', 'Gut Foundations', 'Simple explanations of digestion, regularity, food patterns, stress, and the everyday rhythms worth noticing first.'],
+  ['04', 'Foundational labs', 'Test, Don’t Guess', 'Questions to bring to a qualified practitioner and plain-language context for common wellness conversations.'],
+  ['05', 'Faith + rhythms', 'Stewardship Without Striving', 'Prayerful routines for caring for the body without turning wellness into fear, control, or perfectionism.'],
+  ['06', 'Everyday wellness', 'The Simple Start Handbook', 'A practical workbook for choosing a focus, noticing progress, and building habits that can live in real family life.'],
 ];
 
 function Guides() {
   return (
     <>
-      <section className="page-hero guides-hero">
-        <div className="shell guides-hero-inner">
-          <Eyebrow>Resource library</Eyebrow>
-          <h1>Guides for when you need a <em>clear next step.</em></h1>
-          <p>
-            No twenty-tab rabbit holes. No panic buying. Just thoughtful education, reflection prompts, and practical starting points—built slowly and responsibly.
-          </p>
-          <div className="guide-status"><span className="pulse-dot" /> First guides are in development</div>
-        </div>
-      </section>
-
-      <section className="guides-library section-pad">
-        <div className="shell guide-library-grid">
-          {guideTopics.map((guide, index) => {
-            const Icon = guide.icon;
-            return (
-              <article key={guide.title} className={`library-card ${guide.accent}`}>
-                <div className="library-card-top"><span>0{index + 1}</span><Icon aria-hidden="true" /></div>
-                <small>{guide.label}</small>
-                <h2>{guide.title}</h2>
-                <p>{guide.text}</p>
-                <button type="button" className="coming-button" disabled>
-                  Coming soon
-                </button>
-              </article>
-            );
-          })}
-        </div>
-      </section>
-
-      <section className="guide-request section-pad">
-        <div className="shell request-card">
+      <section className="guides-intro">
+        <div className="shell guides-intro-grid">
           <div>
-            <Eyebrow>Help shape the library</Eyebrow>
-            <h2>What do you wish someone had explained sooner?</h2>
-            <p>Send Annie the question you keep searching. Your note may help shape a future guide or podcast conversation.</p>
+            <SectionLabel>Resource library</SectionLabel>
+            <h1>Guides for when you need a <em>clear next step.</em></h1>
           </div>
-          <a className="button button-primary" href="mailto:annie@healthinthespirit.com?subject=Paired%20Wellness%20guide%20idea">
-            Share a guide idea <ArrowRight size={17} />
-          </a>
+          <div>
+            <p>No twenty-tab rabbit holes. No panic buying. Just thoughtful education, reflection prompts, and practical starting points—built slowly and responsibly.</p>
+            <span className="development-note">First guides are in development</span>
+          </div>
         </div>
       </section>
 
-      <section className="guide-disclaimer">
-        <div className="shell disclaimer-inner">
-          <BookOpen aria-hidden="true" />
-          <div><h2>Education, not a diagnosis.</h2><p>Guides will offer general education and questions to consider. They will not diagnose, prescribe, or replace a relationship with your own qualified healthcare professional.</p></div>
+      <section className="editorial-band guide-library">
+        <div className="shell guide-rows">
+          {guideTopics.map(([number, label, title, text]) => (
+            <article key={number}>
+              <span className="guide-number">{number}</span>
+              <p className="overline">{label}</p>
+              <h2>{title}</h2>
+              <p>{text}</p>
+              <span className="coming-soon">Coming soon</span>
+            </article>
+          ))}
+        </div>
+      </section>
+
+      <section className="guide-invitation">
+        <div className="shell guide-invitation-grid">
+          <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan DeNome at Health in the Spirit" caption="At the kitchen table" className="guide-podcast-image" grayscale />
+          <div>
+            <SectionLabel>Help shape the library</SectionLabel>
+            <h2>What do you wish someone had explained sooner?</h2>
+            <p>Send Annie the question you keep searching. Your note may help shape a future guide or Health in the Spirit conversation.</p>
+            <EditorialLink to="mailto:annie@healthinthespirit.com?subject=Paired%20Wellness%20guide%20idea">Share a guide idea</EditorialLink>
+          </div>
+        </div>
+        <div className="shell guide-disclaimer">
+          <strong>Education, not a diagnosis.</strong>
+          <p>Guides offer general education and questions to consider. They do not diagnose, prescribe, or replace a relationship with your own qualified healthcare professional.</p>
         </div>
       </section>
     </>
@@ -688,12 +486,11 @@ function Guides() {
 
 function NotFound() {
   return (
-    <section className="not-found section-pad">
+    <section className="not-found">
       <div className="shell">
-        <Eyebrow>404</Eyebrow>
+        <SectionLabel>404</SectionLabel>
         <h1>This page is still growing.</h1>
-        <p>Let’s get you back to solid ground.</p>
-        <Link className="button button-primary" to="/">Return home</Link>
+        <EditorialLink to="/">Return home</EditorialLink>
       </div>
     </section>
   );
