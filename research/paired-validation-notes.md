@@ -19,3 +19,7 @@ The Guides route resolves correctly with a full-width orchard image, deep transl
 ## Mobile Home and Guides
 
 At a 390 × 844 viewport, the homepage now collapses to a single-column layout with a floating rounded header, full-width pill actions, readable trust rows, and the botanical hero following the copy below the initial fold. The Guides page preserves strong contrast over the orchard image, keeps the glass hero fully within the viewport, and displays its heading, paragraph, and status pill without clipping or horizontal overflow.
+
+## Production Verification
+
+The Vercel production deployment reached `READY` state and serves the branded alias `https://paired-wellness.vercel.app`. The public homepage loads the Paired Wellness wordmark, optimized botanical imagery, glass navigation, and founder card. A direct request to `/guides` resolves successfully with the orchard hero and all resource placeholders intact.
