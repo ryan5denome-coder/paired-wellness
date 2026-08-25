@@ -6,3 +6,5 @@ dist/
 !.env.example
 .vercel/
 research/mobile-*.png
+research/*mobile*.png
+research/references/

@@ -1901,3 +1901,1157 @@ h2 em {
   .partner-tagline { font-size: 20px; }
   .guide-library-grid { gap: 12px; }
 }
+
+
+/* ─────────────────────────────────────────────────────────────
+   PAIRED WELLNESS — BOTANICAL GLASS DESIGN SYSTEM
+   ───────────────────────────────────────────────────────────── */
+
+:root {
+  --pear: #c9f05b;
+  --gunmetal: #082f2a;
+  --myrtle: #557a45;
+  --ash: #dce9e7;
+  --isabelline: #f7f3ed;
+  --cream-deep: #e9e4dc;
+  --ink: #071f1c;
+  --white: #fffefa;
+  --grass-mist: #dde8cf;
+  --sky-glass: #dce9e7;
+  --line: rgba(8, 47, 42, 0.12);
+  --shadow: 0 30px 80px rgba(8, 47, 42, 0.16);
+  --glass-shadow: 0 12px 38px rgba(8, 47, 42, 0.10), inset 0 1px 0 rgba(255, 255, 255, 0.72);
+  --serif: 'Cormorant Garamond', Georgia, serif;
+  --sans: -apple-system, BlinkMacSystemFont, 'SF Pro Display', 'SF Pro Text', 'Inter', 'DM Sans', Arial, sans-serif;
+  --ease-out: cubic-bezier(0.2, 0.85, 0.3, 1);
+}
+
+html {
+  background: var(--gunmetal);
+}
+
+body {
+  background:
+    radial-gradient(circle at 8% 4%, rgba(201, 240, 91, 0.16), transparent 24rem),
+    var(--isabelline);
+  color: var(--gunmetal);
+  font-family: var(--sans);
+  letter-spacing: -0.012em;
+}
+
+body::before {
+  opacity: 0.055;
+  background-image: radial-gradient(circle, rgba(8, 47, 42, 0.55) 0 0.4px, transparent 0.7px);
+  background-size: 6px 6px;
+  mix-blend-mode: multiply;
+}
+
+.site-frame {
+  background: transparent;
+}
+
+.shell {
+  width: min(1200px, calc(100% - 40px));
+}
+
+.section-pad {
+  padding: 124px 0;
+}
+
+h1,
+h2,
+h3 {
+  color: inherit;
+  letter-spacing: -0.045em;
+}
+
+.announcement {
+  background: var(--gunmetal);
+  color: rgba(255, 254, 250, 0.78);
+  font-size: 10px;
+  letter-spacing: 0.09em;
+  text-transform: none;
+}
+
+.announcement-inner {
+  min-height: 32px;
+}
+
+.announcement a {
+  color: var(--pear);
+  font-weight: 600;
+}
+
+.site-header {
+  position: sticky;
+  top: 0;
+  z-index: 50;
+  padding: 10px 0;
+  border: 0;
+  background: rgba(247, 243, 237, 0.62);
+  -webkit-backdrop-filter: blur(26px) saturate(150%);
+  backdrop-filter: blur(26px) saturate(150%);
+}
+
+.nav-shell {
+  min-height: 68px;
+  padding: 8px 10px 8px 16px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 25px;
+  background: rgba(255, 255, 255, 0.58);
+  box-shadow: var(--glass-shadow);
+}
+
+.wordmark {
+  flex-direction: row;
+  align-items: center;
+  gap: 10px;
+}
+
+.wordmark-copy {
+  display: flex;
+  flex-direction: column;
+}
+
+.wordmark-main {
+  font-family: var(--serif);
+  font-size: 31px;
+  font-weight: 600;
+  line-height: 0.74;
+  letter-spacing: -0.055em;
+}
+
+.wordmark-sub {
+  margin-top: 7px;
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.39em;
+}
+
+.pear-mark {
+  width: 34px;
+  height: 40px;
+  overflow: visible;
+}
+
+.pear-mark-small {
+  width: 27px;
+  height: 32px;
+}
+
+.pear-fruit {
+  fill: var(--pear);
+  stroke: var(--gunmetal);
+  stroke-width: 1.5;
+}
+
+.pear-leaf {
+  fill: var(--myrtle);
+  stroke: var(--gunmetal);
+  stroke-width: 1.4;
+  stroke-linejoin: round;
+}
+
+.pear-stem {
+  fill: none;
+  stroke: var(--gunmetal);
+  stroke-width: 2.4;
+  stroke-linecap: round;
+}
+
+.desktop-nav {
+  gap: 3px;
+  padding: 4px;
+  border: 1px solid rgba(8, 47, 42, 0.06);
+  border-radius: 999px;
+  background: rgba(8, 47, 42, 0.055);
+}
+
+.desktop-nav a {
+  padding: 9px 16px;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+  transition: background 180ms var(--ease-out), box-shadow 180ms var(--ease-out), transform 160ms var(--ease-out);
+}
+
+.desktop-nav a::after {
+  display: none;
+}
+
+.desktop-nav a:hover,
+.desktop-nav a.active {
+  background: rgba(255, 255, 255, 0.82);
+  box-shadow: 0 3px 12px rgba(8, 47, 42, 0.08), inset 0 1px 0 white;
+}
+
+.desktop-nav a:active {
+  transform: scale(0.96);
+}
+
+.nav-cta {
+  min-height: 43px;
+  padding: 11px 16px;
+  border: 0;
+  border-radius: 999px;
+  background: var(--pear);
+  color: var(--gunmetal);
+  box-shadow: 0 8px 18px rgba(85, 122, 69, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.48);
+  font-size: 10px;
+  letter-spacing: -0.01em;
+  text-transform: none;
+}
+
+.nav-cta:hover {
+  background: #d4f676;
+  color: var(--gunmetal);
+  transform: translateY(-1px);
+}
+
+.eyebrow {
+  gap: 9px;
+  margin-bottom: 19px;
+  font-size: 11px;
+  font-weight: 650;
+  letter-spacing: 0.025em;
+  text-transform: none;
+}
+
+.eyebrow::before {
+  width: 8px;
+  height: 8px;
+  border-radius: 50%;
+  background: var(--pear);
+  box-shadow: 0 0 0 4px rgba(201, 240, 91, 0.18);
+}
+
+.eyebrow-light {
+  color: rgba(255, 254, 250, 0.82);
+}
+
+.hero {
+  background:
+    radial-gradient(circle at 72% 24%, rgba(201, 240, 91, 0.22), transparent 28rem),
+    radial-gradient(circle at 10% 70%, rgba(220, 233, 231, 0.8), transparent 26rem),
+    var(--isabelline);
+}
+
+.home-hero {
+  min-height: 770px;
+  padding: 78px 0 112px;
+}
+
+.home-hero::before {
+  content: '';
+  position: absolute;
+  top: 48px;
+  right: -120px;
+  width: 420px;
+  height: 420px;
+  border-radius: 50%;
+  background: rgba(201, 240, 91, 0.16);
+  filter: blur(3px);
+}
+
+.hero-grid {
+  grid-template-columns: 0.98fr 1.02fr;
+  gap: 60px;
+}
+
+.hero-copy h1,
+.page-hero h1 {
+  margin-bottom: 28px;
+  font-size: clamp(62px, 7.1vw, 96px);
+  line-height: 0.91;
+}
+
+.hero-copy h1 em::after,
+.page-hero h1 em::after {
+  bottom: 2px;
+  height: 15px;
+  border-radius: 5px;
+  background: var(--pear);
+  transform: none;
+}
+
+.hero-lead,
+.page-hero-copy > p,
+.guides-hero-inner > p {
+  max-width: 620px;
+  margin-bottom: 31px;
+  color: rgba(8, 47, 42, 0.72);
+  font-size: 17px;
+  font-weight: 400;
+  line-height: 1.68;
+}
+
+.button {
+  min-height: 50px;
+  padding: 13px 20px;
+  border: 0;
+  border-radius: 999px;
+  font-size: 11px;
+  letter-spacing: -0.005em;
+  text-transform: none;
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.18);
+}
+
+.button-primary {
+  background: var(--gunmetal);
+  color: var(--white);
+  box-shadow: 0 12px 28px rgba(8, 47, 42, 0.18), inset 0 1px 0 rgba(255, 255, 255, 0.16);
+}
+
+.button-primary:hover {
+  background: #10433c;
+  transform: translateY(-2px);
+}
+
+.button-ghost {
+  border: 1px solid rgba(8, 47, 42, 0.12);
+  background: rgba(255, 255, 255, 0.58);
+  color: var(--gunmetal);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.button-ghost:hover {
+  background: rgba(255, 255, 255, 0.9);
+  color: var(--gunmetal);
+  transform: translateY(-2px);
+}
+
+.button-light {
+  background: rgba(255, 255, 255, 0.86);
+  color: var(--gunmetal);
+  box-shadow: var(--glass-shadow);
+}
+
+.button-dark {
+  background: var(--gunmetal);
+  color: var(--white);
+}
+
+.trust-row {
+  gap: 8px;
+  margin-top: 28px;
+  padding-top: 0;
+  border: 0;
+}
+
+.trust-row span {
+  padding: 7px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.65);
+  border-radius: 999px;
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.82);
+  font-size: 10px;
+  -webkit-backdrop-filter: blur(12px);
+  backdrop-filter: blur(12px);
+}
+
+.trust-row svg {
+  color: var(--myrtle);
+}
+
+.paired-visual {
+  width: min(100%, 560px);
+  padding: 0;
+}
+
+.hero-visual::after {
+  display: none;
+}
+
+.botanical-hero-card {
+  position: relative;
+  z-index: 2;
+  overflow: hidden;
+  aspect-ratio: 0.8;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 38px;
+  background: var(--grass-mist);
+  box-shadow: 0 34px 90px rgba(8, 47, 42, 0.2), inset 0 1px 0 rgba(255, 255, 255, 0.8);
+}
+
+.botanical-hero-card::after {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background: linear-gradient(180deg, transparent 52%, rgba(8, 47, 42, 0.16));
+  pointer-events: none;
+}
+
+.botanical-hero-card img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+}
+
+.founder-glass-card {
+  position: absolute;
+  left: -42px;
+  bottom: 42px;
+  z-index: 5;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  width: 248px;
+  padding: 10px 14px 10px 10px;
+  border: 1px solid rgba(255, 255, 255, 0.66);
+  border-radius: 22px;
+  background: rgba(255, 255, 255, 0.66);
+  box-shadow: var(--glass-shadow);
+  color: var(--gunmetal);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+
+.founder-glass-card img {
+  width: 58px;
+  height: 58px;
+  object-fit: cover;
+  object-position: 50% 22%;
+  border-radius: 17px;
+}
+
+.founder-glass-card span {
+  display: grid;
+  gap: 2px;
+  color: rgba(8, 47, 42, 0.64);
+  font-size: 10px;
+}
+
+.founder-glass-card strong {
+  color: var(--gunmetal);
+  font-size: 13px;
+  font-weight: 650;
+}
+
+.hero-stamp {
+  top: 26px;
+  right: -25px;
+  bottom: auto;
+  width: 108px;
+  height: 108px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  background: rgba(255, 255, 255, 0.68);
+  box-shadow: var(--glass-shadow);
+  transform: rotate(5deg);
+  -webkit-backdrop-filter: blur(22px) saturate(145%);
+  backdrop-filter: blur(22px) saturate(145%);
+}
+
+.hero-stamp .pear-mark-small {
+  width: 21px;
+  height: 24px;
+}
+
+.hero-stamp span {
+  font-size: 7px;
+  font-weight: 700;
+  letter-spacing: 0.11em;
+}
+
+.hero-orbit {
+  top: auto;
+  right: -46px;
+  bottom: -36px;
+  width: 190px;
+  height: 190px;
+  border: 0;
+  background: var(--pear);
+  opacity: 0.45;
+  filter: blur(1px);
+}
+
+.paper-line {
+  display: none;
+}
+
+.pathways {
+  background:
+    radial-gradient(circle at 90% 10%, rgba(201, 240, 91, 0.15), transparent 22rem),
+    var(--white);
+}
+
+.pathway-grid {
+  gap: 14px;
+}
+
+.pathway-card {
+  min-height: 390px;
+  padding: 30px;
+  border: 1px solid rgba(255, 255, 255, 0.58);
+  border-radius: 30px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+.pathway-card::before {
+  content: '';
+  position: absolute;
+  top: -50px;
+  right: -45px;
+  width: 150px;
+  height: 150px;
+  border-radius: 50%;
+  background: rgba(255, 255, 255, 0.18);
+}
+
+.pathway-card:hover {
+  box-shadow: 0 28px 70px rgba(8, 47, 42, 0.16), inset 0 1px 0 rgba(255, 255, 255, 0.7);
+  transform: translateY(-6px) scale(1.005);
+}
+
+.card-arrow {
+  border: 0;
+  background: rgba(255, 255, 255, 0.38);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6);
+}
+
+.pathway-card:hover .card-arrow {
+  background: rgba(255, 255, 255, 0.78);
+}
+
+.pathway-card:hover .card-arrow svg {
+  color: var(--gunmetal);
+}
+
+.lime-card { background: linear-gradient(145deg, #d8f77a, var(--pear)); }
+.green-card { background: linear-gradient(145deg, #648d55, #3f6a43); }
+.cream-card { background: linear-gradient(145deg, rgba(255,255,255,.9), var(--grass-mist)); }
+
+.dark-section {
+  background: var(--gunmetal);
+  color: var(--white);
+}
+
+.root-story {
+  position: relative;
+  background:
+    linear-gradient(90deg, rgba(8, 47, 42, 0.97), rgba(8, 47, 42, 0.82)),
+    url('/botanical/paired-orchard-wide.jpg') center / cover;
+}
+
+.story-grid {
+  gap: 76px;
+}
+
+.story-image-wrap {
+  min-height: 500px;
+  border: 1px solid rgba(255, 255, 255, 0.28);
+  border-radius: 34px;
+  box-shadow: 0 28px 70px rgba(0, 0, 0, 0.22);
+}
+
+.story-image-wrap img {
+  min-height: 500px;
+}
+
+.image-caption {
+  right: 14px;
+  bottom: 14px;
+  padding: 9px 12px;
+  border: 1px solid rgba(255, 255, 255, 0.22);
+  border-radius: 999px;
+  background: rgba(8, 47, 42, 0.68);
+  letter-spacing: 0.03em;
+  text-transform: none;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.story-copy {
+  padding: 38px;
+  border: 1px solid rgba(255, 255, 255, 0.18);
+  border-radius: 32px;
+  background: rgba(8, 47, 42, 0.42);
+  box-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.1);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.text-link {
+  padding: 10px 0 5px;
+  border-bottom-color: currentColor;
+  font-size: 11px;
+  letter-spacing: -0.005em;
+  text-transform: none;
+}
+
+.text-link:hover {
+  color: var(--myrtle);
+}
+
+.text-link-light,
+.text-link-light:hover {
+  color: var(--pear);
+}
+
+.fresh-section {
+  position: relative;
+  overflow: hidden;
+  background: var(--isabelline);
+}
+
+.fresh-section::before {
+  content: '';
+  position: absolute;
+  top: -12%;
+  right: -6%;
+  width: 42%;
+  height: 124%;
+  background: linear-gradient(90deg, var(--isabelline), transparent 35%), url('/botanical/paired-floral-detail.jpg') center / cover;
+  opacity: 0.2;
+  filter: saturate(0.9);
+}
+
+.fresh-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.fresh-editorial {
+  padding: 48px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 32px;
+  background: rgba(255, 255, 255, 0.52);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.editorial-rule {
+  display: none;
+}
+
+.fresh-editorial h2 em {
+  padding: 0 8px 4px;
+  border-radius: 6px;
+  background: var(--pear);
+}
+
+.mini-feature {
+  min-height: 260px;
+  padding: 34px;
+  border: 1px solid rgba(255, 255, 255, 0.62);
+  border-radius: 30px;
+  background: rgba(220, 233, 231, 0.72);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(20px);
+  backdrop-filter: blur(20px);
+}
+
+.mini-feature-dark {
+  border-radius: 30px;
+  background: rgba(8, 47, 42, 0.9);
+}
+
+.guides-preview {
+  background:
+    radial-gradient(circle at 10% 80%, rgba(221, 232, 207, 0.8), transparent 25rem),
+    var(--white);
+}
+
+.guide-strip {
+  gap: 12px;
+  border: 0;
+}
+
+.guide-preview-card {
+  min-height: 340px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255, 255, 255, 0.64);
+  box-shadow: var(--glass-shadow);
+}
+
+.guide-preview-card:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.guide-preview-card small {
+  border-radius: 999px;
+  background: var(--pear);
+}
+
+.podcast-banner {
+  padding: 32px 0;
+  background: var(--myrtle);
+}
+
+.podcast-inner {
+  padding: 25px 28px;
+  border: 1px solid rgba(255, 255, 255, 0.2);
+  border-radius: 30px;
+  background: rgba(255, 255, 255, 0.09);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.12);
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.podcast-mark {
+  width: 68px;
+  height: 68px;
+  border: 0;
+  background: rgba(255, 255, 255, 0.14);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.18);
+}
+
+.page-hero {
+  position: relative;
+  overflow: hidden;
+  padding: 100px 0 110px;
+  background:
+    radial-gradient(circle at 86% 18%, rgba(201, 240, 91, 0.22), transparent 24rem),
+    var(--isabelline);
+}
+
+.about-hero::after {
+  content: '';
+  position: absolute;
+  top: -20%;
+  right: -4%;
+  width: 40%;
+  height: 130%;
+  background: url('/botanical/paired-floral-detail.jpg') center / cover;
+  opacity: 0.11;
+  -webkit-mask-image: linear-gradient(90deg, transparent, #000 35%);
+  mask-image: linear-gradient(90deg, transparent, #000 35%);
+}
+
+.page-hero-grid {
+  position: relative;
+  z-index: 2;
+}
+
+.about-portrait-card {
+  padding: 12px;
+  border: 1px solid rgba(255,255,255,.66);
+  border-radius: 34px;
+  background: rgba(255,255,255,.58);
+  box-shadow: var(--glass-shadow);
+  transform: none;
+  -webkit-backdrop-filter: blur(18px);
+  backdrop-filter: blur(18px);
+}
+
+.about-portrait-card img {
+  border-radius: 25px;
+}
+
+.about-portrait-card > div {
+  padding: 16px 8px 8px;
+}
+
+.bio-section {
+  background: var(--white);
+}
+
+.bio-grid {
+  padding: 54px;
+  border: 1px solid var(--line);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(255,255,255,.92), rgba(221,232,207,.48));
+  box-shadow: var(--glass-shadow);
+}
+
+.journey-section {
+  background: var(--isabelline);
+}
+
+.journey-grid {
+  gap: 12px;
+  border: 0;
+}
+
+.journey-grid article {
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: rgba(255,255,255,.52);
+  box-shadow: var(--glass-shadow);
+}
+
+.journey-grid article:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.beliefs-section {
+  background:
+    linear-gradient(90deg, rgba(8,47,42,.98), rgba(8,47,42,.88)),
+    url('/botanical/paired-orchard-wide.jpg') center / cover;
+}
+
+.belief-list article {
+  margin-bottom: 10px;
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.16);
+  border-radius: 24px;
+  background: rgba(255,255,255,.07);
+  -webkit-backdrop-filter: blur(14px);
+  backdrop-filter: blur(14px);
+}
+
+.notes-grid > div {
+  min-height: 250px;
+  border: 1px solid var(--line);
+  border-radius: 28px;
+  background: linear-gradient(145deg, rgba(255,255,255,.9), rgba(221,232,207,.62));
+  box-shadow: var(--glass-shadow);
+}
+
+.simple-cta {
+  padding: 44px 0;
+  background: linear-gradient(135deg, #d9f881, var(--pear));
+}
+
+.simple-cta-inner {
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.48);
+  border-radius: 30px;
+  background: rgba(255,255,255,.22);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.55);
+}
+
+.skincare-hero {
+  background:
+    radial-gradient(circle at 20% 12%, rgba(255,255,255,.82), transparent 20rem),
+    var(--grass-mist);
+}
+
+.skincare-visual {
+  min-height: 560px;
+  border: 1px solid rgba(255,255,255,.66);
+  border-radius: 38px;
+  background:
+    linear-gradient(180deg, rgba(247,243,237,.08), rgba(8,47,42,.2)),
+    url('/botanical/paired-floral-detail.jpg') center / cover;
+  box-shadow: var(--shadow);
+}
+
+.bottle {
+  border: 1px solid rgba(255,255,255,.54);
+  border-radius: 24px 24px 18px 18px;
+  background: rgba(255,255,255,.25);
+  box-shadow: 0 22px 48px rgba(8,47,42,.17), inset 0 1px 0 rgba(255,255,255,.56);
+  -webkit-backdrop-filter: blur(16px) saturate(145%);
+  backdrop-filter: blur(16px) saturate(145%);
+}
+
+.bottle::before {
+  border: 1px solid rgba(255,255,255,.56);
+  border-radius: 10px 10px 4px 4px;
+  background: rgba(255,255,255,.7);
+}
+
+.bottle-one { background: rgba(201,240,91,.42); }
+.bottle-two { background: rgba(85,122,69,.5); }
+.bottle-three { background: rgba(220,233,231,.58); }
+
+.principle-row {
+  gap: 12px;
+  border: 0;
+}
+
+.principle-row > div {
+  border: 1px solid var(--line);
+  border-radius: 25px;
+  background: rgba(255,255,255,.62);
+  box-shadow: var(--glass-shadow);
+}
+
+.principle-row > div:last-child {
+  border-right: 1px solid var(--line);
+}
+
+.partners-section {
+  background:
+    radial-gradient(circle at 85% 8%, rgba(201,240,91,.2), transparent 24rem),
+    var(--isabelline);
+}
+
+.partner-card {
+  min-height: 570px;
+  border: 1px solid rgba(255,255,255,.5);
+  border-radius: 36px;
+  box-shadow: var(--glass-shadow);
+}
+
+.crunchy-card {
+  background: linear-gradient(145deg, #dcf987, var(--pear));
+}
+
+.ringana-card {
+  background: linear-gradient(145deg, #16473f, var(--gunmetal));
+}
+
+.partner-topline {
+  border-bottom-color: rgba(255,255,255,.34);
+  letter-spacing: 0.02em;
+  text-transform: none;
+}
+
+.fresh-manifesto {
+  background: var(--white);
+}
+
+.manifesto-title {
+  overflow: hidden;
+  min-height: 460px;
+  border-radius: 34px;
+  background:
+    linear-gradient(180deg, rgba(8,47,42,.2), rgba(8,47,42,.74)),
+    url('/botanical/paired-pear-hero.jpg') center / cover;
+  box-shadow: var(--shadow);
+}
+
+.manifesto-title span {
+  border-bottom-color: rgba(255,255,255,.34);
+  text-shadow: 0 2px 18px rgba(0,0,0,.28);
+}
+
+.routine-section {
+  background:
+    radial-gradient(circle at 12% 88%, rgba(201,240,91,.18), transparent 24rem),
+    var(--sky-glass);
+}
+
+.routine-list {
+  display: grid;
+  gap: 10px;
+  border: 0;
+}
+
+.routine-list li {
+  padding: 26px;
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 24px;
+  background: rgba(255,255,255,.52);
+  box-shadow: var(--glass-shadow);
+  -webkit-backdrop-filter: blur(15px);
+  backdrop-filter: blur(15px);
+}
+
+.guides-hero {
+  min-height: 650px;
+  background:
+    linear-gradient(90deg, rgba(8,47,42,.82), rgba(8,47,42,.22)),
+    url('/botanical/paired-orchard-wide.jpg') center / cover;
+  color: var(--white);
+}
+
+.guides-hero::after {
+  top: -90px;
+  right: -20px;
+  width: 390px;
+  height: 560px;
+  border: 2px solid rgba(201,240,91,.55);
+  border-radius: 200px;
+  transform: rotate(14deg);
+}
+
+.guides-hero-inner {
+  max-width: 850px;
+  padding: 50px;
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 36px;
+  background: rgba(8,47,42,.45);
+  box-shadow: 0 28px 70px rgba(0,0,0,.2), inset 0 1px 0 rgba(255,255,255,.12);
+  -webkit-backdrop-filter: blur(18px) saturate(130%);
+  backdrop-filter: blur(18px) saturate(130%);
+}
+
+.guides-hero-inner > p {
+  color: rgba(255,255,255,.76);
+}
+
+.guide-status {
+  border: 1px solid rgba(255,255,255,.2);
+  border-radius: 999px;
+  background: rgba(255,255,255,.1);
+  letter-spacing: 0;
+  text-transform: none;
+}
+
+.pulse-dot {
+  background: var(--pear);
+  box-shadow: 0 0 0 6px rgba(201,240,91,.15);
+}
+
+.guides-library {
+  background:
+    radial-gradient(circle at 10% 10%, rgba(221,232,207,.72), transparent 25rem),
+    var(--white);
+}
+
+.library-card {
+  min-height: 450px;
+  border: 1px solid rgba(255,255,255,.58);
+  border-radius: 30px;
+  box-shadow: var(--glass-shadow);
+  overflow: hidden;
+}
+
+.library-card.lime { background: linear-gradient(145deg, #dcf987, var(--pear)); }
+.library-card.cream { background: rgba(247,243,237,.74); }
+.library-card.green { background: linear-gradient(145deg, #648d55, #3f6a43); }
+.library-card.ash { background: linear-gradient(145deg, #eef5f3, var(--ash)); }
+.library-card.dark { background: linear-gradient(145deg, #16473f, var(--gunmetal)); }
+
+.coming-button {
+  border-radius: 999px;
+  background: rgba(255,255,255,.5);
+  letter-spacing: .04em;
+  text-transform: none;
+}
+
+.guide-request {
+  background: var(--isabelline);
+}
+
+.request-card {
+  border: 1px solid rgba(255,255,255,.6);
+  border-radius: 34px;
+  background: linear-gradient(145deg, rgba(255,255,255,.74), rgba(221,232,207,.64));
+  box-shadow: var(--glass-shadow);
+}
+
+.guide-disclaimer {
+  background: var(--grass-mist);
+}
+
+.disclaimer-inner {
+  padding: 28px;
+  border: 1px solid rgba(255,255,255,.56);
+  border-radius: 28px;
+  background: rgba(255,255,255,.42);
+  box-shadow: inset 0 1px 0 rgba(255,255,255,.68);
+}
+
+.site-footer {
+  padding-top: 78px;
+  background:
+    linear-gradient(180deg, rgba(8,47,42,.97), var(--gunmetal)),
+    url('/botanical/paired-orchard-wide.jpg') center / cover;
+}
+
+.footer-wordmark .pear-fruit {
+  fill: var(--pear);
+  stroke: var(--white);
+}
+
+.footer-wordmark .pear-leaf {
+  stroke: var(--white);
+}
+
+.footer-wordmark .pear-stem {
+  stroke: var(--white);
+}
+
+@media (max-width: 980px) {
+  .pathway-grid,
+  .guide-strip,
+  .journey-grid { grid-template-columns: 1fr; }
+  .site-header { padding: 8px 0; }
+  .nav-shell { grid-template-columns: 1fr auto; min-height: 64px; }
+  .menu-toggle {
+    width: 42px;
+    height: 42px;
+    border: 1px solid rgba(8,47,42,.08);
+    border-radius: 14px;
+    background: rgba(255,255,255,.72);
+    box-shadow: inset 0 1px 0 white;
+  }
+  .mobile-nav {
+    margin-top: 8px;
+    padding: 12px;
+    border: 1px solid rgba(255,255,255,.62);
+    border-radius: 24px;
+    background: rgba(255,255,255,.8);
+    box-shadow: var(--glass-shadow);
+    -webkit-backdrop-filter: blur(24px);
+    backdrop-filter: blur(24px);
+  }
+  .mobile-nav a {
+    padding: 13px 12px;
+    border-bottom-color: var(--line);
+    border-radius: 14px;
+    font-family: var(--sans);
+    font-size: 16px;
+    font-weight: 600;
+  }
+  .mobile-nav a:hover { background: rgba(201,240,91,.26); }
+  .founder-glass-card { left: -20px; }
+  .hero-stamp { right: -10px; }
+}
+
+@media (max-width: 760px) {
+  .hero-grid,
+  .page-hero-grid,
+  .skincare-hero-grid,
+  .story-grid,
+  .fresh-grid,
+  .bio-grid,
+  .beliefs-grid,
+  .inside-out-grid,
+  .manifesto-grid,
+  .routine-grid,
+  .split-heading,
+  .partner-grid,
+  .podcast-inner,
+  .simple-cta-inner,
+  .request-card,
+  .footer-grid,
+  .pathway-grid,
+  .guide-strip,
+  .journey-grid,
+  .notes-grid,
+  .principle-row,
+  .guide-library-grid { grid-template-columns: 1fr; }
+  .shell { width: min(100% - 24px, 680px); }
+  .section-pad { padding: 82px 0; }
+  .announcement-inner { min-height: 29px; }
+  .nav-shell { padding-left: 12px; border-radius: 21px; }
+  .wordmark-main { font-size: 28px; }
+  .home-hero { padding: 58px 0 88px; }
+  .hero-grid { gap: 50px; }
+  .hero-copy h1, .page-hero h1 { font-size: clamp(50px, 15vw, 70px); }
+  .hero-lead, .page-hero-copy > p, .guides-hero-inner > p { font-size: 16px; }
+  .button-row { flex-direction: row; }
+  .button-row .button { width: auto; }
+  .trust-row { display: flex; }
+  .paired-visual { width: calc(100% - 14px); }
+  .botanical-hero-card { border-radius: 30px; }
+  .founder-glass-card { left: -5px; bottom: 22px; width: 224px; border-radius: 19px; }
+  .founder-glass-card img { width: 50px; height: 50px; border-radius: 14px; }
+  .hero-stamp { top: 18px; right: -10px; width: 92px; height: 92px; }
+  .hero-orbit { right: -52px; bottom: -45px; }
+  .pathway-card, .guide-preview-card, .library-card { border-radius: 26px; }
+  .story-copy, .fresh-editorial, .bio-grid, .request-card { padding: 30px; border-radius: 28px; }
+  .fresh-section::before { width: 78%; right: -30%; opacity: .14; }
+  .podcast-inner { border-radius: 26px; }
+  .about-hero::after { width: 75%; right: -28%; }
+  .about-portrait-card { border-radius: 28px; }
+  .partner-card { border-radius: 30px; }
+  .guides-hero { min-height: 620px; }
+  .guides-hero-inner { padding: 32px 27px; border-radius: 28px; }
+  .guides-hero::after { opacity: .35; }
+  .guide-preview-card:last-child { border-right: 1px solid var(--line); }
+  .journey-grid article:last-child { border-right: 1px solid var(--line); }
+  .principle-row > div:last-child { border-right: 1px solid var(--line); }
+}
+
+@media (max-width: 430px) {
+  .announcement { font-size: 9px; }
+  .hero-copy h1, .page-hero h1 { font-size: 50px; }
+  .button-row { flex-direction: column; }
+  .button-row .button { width: 100%; }
+  .trust-row { display: grid; }
+  .founder-glass-card { width: 210px; }
+  .hero-stamp { width: 84px; height: 84px; }
+  .story-copy, .fresh-editorial, .bio-grid, .request-card { padding: 25px; }
+  .manifesto-title { border-radius: 28px; }
+}

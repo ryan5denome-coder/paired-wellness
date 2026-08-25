@@ -25,10 +25,10 @@ const navItems = [
 ];
 
 const pageTitles = {
-  '/': 'Annie B Wellness | Faith, Gut Health & Clean Skincare',
-  '/about': 'About Annie | Annie B Wellness',
-  '/skincare': 'Clean Skincare | Annie B Wellness',
-  '/guides': 'Wellness Guides | Annie B Wellness',
+  '/': 'Paired Wellness | Faith, Gut Health & Clean Skincare',
+  '/about': 'About Annie | Paired Wellness',
+  '/skincare': 'Clean Skincare | Paired Wellness',
+  '/guides': 'Wellness Guides | Paired Wellness',
 };
 
 function ScrollManager() {
@@ -42,11 +42,21 @@ function ScrollManager() {
   return null;
 }
 
+function PearMark({ small = false }) {
+  return (
+    <svg className={small ? 'pear-mark pear-mark-small' : 'pear-mark'} viewBox="0 0 64 76" aria-hidden="true">
+      <path d="M39 18c4-8 11-11 18-10-2 8-7 13-17 14" className="pear-leaf" />
+      <path d="M35 20c-1-8 1-14 5-18" className="pear-stem" />
+      <path d="M32 18c-11 0-15 11-17 19C12 49 5 55 8 64c3 9 14 12 24 12s21-3 24-12c3-9-4-15-7-27-2-8-6-19-17-19Z" className="pear-fruit" />
+    </svg>
+  );
+}
+
 function Announcement() {
   return (
     <div className="announcement">
       <div className="shell announcement-inner">
-        <span>Root-cause wellness for body + soul</span>
+        <span>Body + soul · root + fruit · faith + practice</span>
         <a href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">
           Follow Annie <ArrowUpRight size={14} aria-hidden="true" />
         </a>
@@ -66,9 +76,12 @@ function Header() {
       <Announcement />
       <header className="site-header">
         <div className="shell nav-shell">
-          <Link to="/" className="wordmark" aria-label="Annie B Wellness home">
-            <span className="wordmark-main">Annie B</span>
-            <span className="wordmark-sub">WELLNESS</span>
+          <Link to="/" className="wordmark" aria-label="Paired Wellness home">
+            <PearMark small />
+            <span className="wordmark-copy">
+              <span className="wordmark-main">Paired</span>
+              <span className="wordmark-sub">WELLNESS</span>
+            </span>
           </Link>
 
           <nav className="desktop-nav" aria-label="Primary navigation">
@@ -126,8 +139,11 @@ function Footer() {
       <div className="shell footer-grid">
         <div className="footer-brand">
           <Link to="/" className="wordmark footer-wordmark">
-            <span className="wordmark-main">Annie B</span>
-            <span className="wordmark-sub">WELLNESS</span>
+            <PearMark small />
+            <span className="wordmark-copy">
+              <span className="wordmark-main">Paired</span>
+              <span className="wordmark-sub">WELLNESS</span>
+            </span>
           </Link>
           <p>Christ-centered encouragement for clear direction, healthy rhythms, and whole-person stewardship.</p>
           <a
@@ -162,7 +178,7 @@ function Footer() {
         </div>
       </div>
       <div className="shell footer-bottom">
-        <span>© {new Date().getFullYear()} Annie B Wellness</span>
+        <span>© {new Date().getFullYear()} Paired Wellness</span>
         <span>Made to nourish body + soul</span>
       </div>
     </footer>
@@ -200,7 +216,7 @@ function Home() {
       <section className="hero home-hero">
         <div className="shell hero-grid">
           <div className="hero-copy reveal">
-            <Eyebrow>Faith • Gut Health • Clean Skincare</Eyebrow>
+            <Eyebrow>Body + Soul • Root + Fruit</Eyebrow>
             <h1>
               Wellness, rooted in the <em>One who made you.</em>
             </h1>
@@ -213,19 +229,23 @@ function Home() {
               </Link>
               <Link className="button button-ghost" to="/guides">Browse guides</Link>
             </div>
-            <div className="trust-row" aria-label="Annie B Wellness focus areas">
+            <div className="trust-row" aria-label="Paired Wellness focus areas">
               <span><Check size={15} aria-hidden="true" /> Root-cause focused</span>
               <span><Check size={15} aria-hidden="true" /> Christ-centered</span>
               <span><Check size={15} aria-hidden="true" /> No shame, no guessing</span>
             </div>
           </div>
 
-          <div className="hero-visual reveal delay-1">
-            <div className="portrait-arch">
-              <img src="/annie-denome-portrait.webp" alt="Annie DeNome, founder of Annie B Wellness" />
+          <div className="hero-visual paired-visual reveal delay-1">
+            <div className="botanical-hero-card">
+              <img src="/botanical/paired-pear-hero.jpg" alt="Fresh pears resting on striped linen in a sunlit orchard" />
             </div>
-            <div className="hero-stamp">
-              <Sprout size={18} aria-hidden="true" />
+            <div className="founder-glass-card">
+              <img src="/annie-denome-portrait.webp" alt="Annie DeNome, founder of Paired Wellness" />
+              <span><strong>Meet Annie</strong> Founder + storyteller</span>
+            </div>
+            <div className="hero-stamp glass-pill">
+              <PearMark small />
               <span>BODY + SOUL</span>
             </div>
             <div className="hero-orbit" aria-hidden="true" />
@@ -329,7 +349,7 @@ function Home() {
           <div className="section-heading centered-heading">
             <Eyebrow>Guides are growing</Eyebrow>
             <h2>Clear help for the questions you keep carrying.</h2>
-            <p>The first Annie B Wellness guides are being written now. Here is what is coming.</p>
+            <p>The first Paired Wellness guides are being written now. Here is what is coming.</p>
           </div>
           <div className="guide-strip">
             {[
@@ -409,7 +429,7 @@ function About() {
               At Franciscan University of Steubenville, she double-majored in Theology and Psychology—a combination that still shapes how she sees health: the interior life matters, the body matters, and neither one flourishes in isolation.
             </p>
             <p>
-              Today, her work and advocacy bridge faith with practical human development. Through Annie B Wellness, she is turning a decade-long struggle with acne and gut symptoms into clear, compassionate education for women who are tired of guessing.
+              Today, her work and advocacy bridge faith with practical human development. Through Paired Wellness, she is turning a decade-long struggle with acne and gut symptoms into clear, compassionate education for women who are tired of guessing.
             </p>
           </div>
         </div>
@@ -650,7 +670,7 @@ function Guides() {
             <h2>What do you wish someone had explained sooner?</h2>
             <p>Send Annie the question you keep searching. Your note may help shape a future guide or podcast conversation.</p>
           </div>
-          <a className="button button-primary" href="mailto:annie@healthinthespirit.com?subject=Annie%20B%20Wellness%20guide%20idea">
+          <a className="button button-primary" href="mailto:annie@healthinthespirit.com?subject=Paired%20Wellness%20guide%20idea">
             Share a guide idea <ArrowRight size={17} />
           </a>
         </div>

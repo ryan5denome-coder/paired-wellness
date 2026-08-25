@@ -1,4 +1,4 @@
-# Annie B Wellness
+# Paired Wellness
 
 A responsive four-page brand website for Annie DeNome’s Christ-centered wellness, skincare, and educational work.
 
@@ -26,17 +26,18 @@ npm run build
 
 ## Design system
 
-The visual direction uses the supplied editorial wellness references: arched frames, minimal-boho spacing, paper texture, precise rules, high-contrast serif typography, and a restrained brand palette.
+The Paired Wellness direction combines the user’s Pinterest look book with a premium iOS-inspired interface. Original pear, orchard, grass, tree, and pear-blossom photography is paired with spatial layers, frosted glass, large-radius cards, floating pill controls, restrained shadows, and short tactile interactions.
 
 | Color | Value |
 |---|---:|
-| Pear | `#C3DB5F` |
-| Gunmetal | `#00292D` |
-| Myrtle Green | `#3C756F` |
-| Ash Gray | `#C2D6C8` |
-| Isabelline | `#F9F4EE` |
+| Pear Glow | `#C9F05B` |
+| Orchard Ink | `#082F2A` |
+| Moss | `#557A45` |
+| Grass Mist | `#DDE8CF` |
+| Sky Glass | `#DCE9E7` |
+| Petal | `#F7F3ED` |
 
-Typography pairs **Cormorant Garamond** for editorial display text with **DM Sans** for body copy and navigation.
+Typography uses **Cormorant Garamond** for editorial display moments and the native Apple/system font stack for interface clarity. The original botanical assets live in `public/botanical/` and were generated specifically for this website rather than copied from the Pinterest references.
 
 ## Content and attribution
 
