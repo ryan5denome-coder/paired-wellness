@@ -19,3 +19,7 @@ The Guides page renders all six requested placeholder topics with disabled “Co
 ## Mobile validation
 
 At a 390 × 844 phone viewport, the homepage and Guides page render without horizontal overflow or clipped text. Navigation collapses to a clear menu button, the editorial headlines scale down cleanly, action buttons become full-width, and the Guides hero retains readable contrast and spacing. The desktop and mobile renderings both preserve the intended serif-and-sans hierarchy.
+
+## Production verification
+
+The Vercel production deployment reached `READY` state and serves the branded alias `https://annie-b-wellness.vercel.app`. The homepage loads with the approved imagery and design, and a direct request to `/guides` resolves correctly through the SPA rewrite with all guide placeholders present.
