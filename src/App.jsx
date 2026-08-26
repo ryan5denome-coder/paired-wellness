@@ -184,7 +184,7 @@ function Home() {
             <SectionLabel>Bio</SectionLabel>
             <h2>Health Restoration<br />with <em>Annie DeNome</em></h2>
             <p>
-              I spent over a decade searching for answers to acne, bloating, brain fog, and painful cycles. Paired Wellness is where that story becomes steady, Christ-centered guidance for women who are ready to ask better questions.
+              I spent over 15 years searching for answers to acne, bloating, brain fog, and painful cycles. Paired Wellness is where that story turns outward to become a steady christ-centered guide for women who are ready to ask better questions.
             </p>
             <blockquote>Nothing changed fast or alone. Everything changed when the whole story mattered.</blockquote>
             <EditorialLink to="/about">Read Annie’s story</EditorialLink>
