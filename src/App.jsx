@@ -17,12 +17,25 @@ const pageTitles = {
 };
 
 function ScrollManager() {
-  const { pathname } = useLocation();
+  const { pathname, hash } = useLocation();
 
   useEffect(() => {
-    window.scrollTo({ top: 0, behavior: 'instant' });
     document.title = pageTitles[pathname] || pageTitles['/'];
   }, [pathname]);
+
+  useEffect(() => {
+    if (!hash) {
+      window.scrollTo({ top: 0, behavior: 'instant' });
+      return undefined;
+    }
+
+    // Wait a frame so the destination section is mounted before measuring it.
+    const frame = window.requestAnimationFrame(() => {
+      if (!scrollToHash(hash)) window.scrollTo({ top: 0, behavior: 'instant' });
+    });
+
+    return () => window.cancelAnimationFrame(frame);
+  }, [pathname, hash]);
 
   return null;
 }
@@ -40,14 +53,30 @@ function PearSketch({ className = '' }) {
 
 function Header() {
   const [open, setOpen] = useState(false);
-  const { pathname } = useLocation();
+  const closeMenu = () => setOpen(false);
 
-  useEffect(() => setOpen(false), [pathname]);
+  // While the sheet is up, Escape dismisses it and the page behind stays put.
+  useEffect(() => {
+    if (!open) return undefined;
+
+    const onKeyDown = (event) => {
+      if (event.key === 'Escape') setOpen(false);
+    };
+
+    const previousOverflow = document.body.style.overflow;
+    document.body.style.overflow = 'hidden';
+    document.addEventListener('keydown', onKeyDown);
+
+    return () => {
+      document.body.style.overflow = previousOverflow;
+      document.removeEventListener('keydown', onKeyDown);
+    };
+  }, [open]);
 
   return (
     <header className="site-header">
       <div className="shell header-row">
-        <Link to="/" className="header-brand" aria-label="Paired Wellness home">
+        <Link to="/" className="header-brand" aria-label="Paired Wellness home" onClick={closeMenu}>
           <PearSketch />
           <span><strong>Paired</strong><small>WELLNESS</small></span>
         </Link>
@@ -67,6 +96,7 @@ function Header() {
           className="menu-toggle"
           type="button"
           aria-expanded={open}
+          aria-controls="mobile-nav"
           aria-label={open ? 'Close navigation menu' : 'Open navigation menu'}
           onClick={() => setOpen((value) => !value)}
         >
@@ -75,7 +105,7 @@ function Header() {
       </div>
 
       {open && (
-        <nav className="mobile-nav shell" aria-label="Mobile navigation">
+        <nav id="mobile-nav" className="mobile-nav shell" aria-label="Mobile navigation" onClick={closeMenu}>
           {navItems.map((item) => <NavLink key={item.to} to={item.to}>{item.label}</NavLink>)}
           <a href="https://linktr.ee/anniebdenome" target="_blank" rel="noreferrer">Start here</a>
         </nav>
@@ -88,6 +118,15 @@ function SectionLabel({ children }) {
   return <p className="section-label">{children}</p>;
 }
 
+function scrollToHash(hash) {
+  const target = document.querySelector(hash);
+  if (!target) return false;
+
+  const reduce = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  target.scrollIntoView({ behavior: reduce ? 'instant' : 'smooth', block: 'start' });
+  return true;
+}
+
 function EditorialLink({ to, children, external = false, className = '' }) {
   const content = <>{children}<ArrowRight size={15} aria-hidden="true" /></>;
   const classes = `editorial-link ${className}`.trim();
@@ -95,13 +134,49 @@ function EditorialLink({ to, children, external = false, className = '' }) {
   if (external) {
     return <a className={classes} href={to} target="_blank" rel="noreferrer">{content}</a>;
   }
+
+  // Same-page anchors are handled here rather than through the router, which
+  // treats a hash-only change as the same location and never re-runs the
+  // scroll effect. Keeping it explicit also keeps the URL shareable.
+  if (to.startsWith('#')) {
+    const onClick = (event) => {
+      if (event.metaKey || event.ctrlKey || event.shiftKey || event.button !== 0) return;
+      if (!scrollToHash(to)) return;
+      event.preventDefault();
+      window.history.pushState(null, '', to);
+    };
+
+    return <a className={classes} href={to} onClick={onClick}>{content}</a>;
+  }
+
   return <Link className={classes} to={to}>{content}</Link>;
 }
 
-function Figure({ src, alt, caption, className = '', grayscale = false }) {
+// Intrinsic pixel sizes, so the browser reserves the right box before the file
+// arrives and the page never reflows underneath the reader.
+const imageDimensions = {
+  '/botanical/paired-pear-hero.jpg': [1664, 2080],
+  '/botanical/paired-orchard-wide.jpg': [2200, 1238],
+  '/botanical/paired-floral-detail.jpg': [1664, 2080],
+  '/annie-denome-portrait.webp': [1067, 1600],
+  '/annie-ryan-formal.webp': [1200, 390],
+  '/annie/annie-staircase.jpg': [850, 600],
+};
+
+function Figure({ src, alt, caption, className = '', grayscale = false, priority = false }) {
+  const [width, height] = imageDimensions[src] || [];
+
   return (
     <figure className={`editorial-figure ${className}${grayscale ? ' grayscale' : ''}`}>
-      <img src={src} alt={alt} />
+      <img
+        src={src}
+        alt={alt}
+        width={width}
+        height={height}
+        loading={priority ? 'eager' : 'lazy'}
+        decoding="async"
+        fetchPriority={priority ? 'high' : undefined}
+      />
       {caption && <figcaption>{caption}</figcaption>}
     </figure>
   );
@@ -139,8 +214,9 @@ function Layout({ children }) {
   return (
     <div className="site-frame">
       <ScrollManager />
+      <a className="skip-link" href="#main-content">Skip to content</a>
       <Header />
-      <main>{children}</main>
+      <main id="main-content">{children}</main>
       <Footer />
     </div>
   );
@@ -168,6 +244,7 @@ function Home() {
             alt="Fresh pears in a quiet natural setting"
             caption="The Paired Wellness Method"
             className="masthead-figure reveal delay-1"
+            priority
           />
         </div>
       </section>
@@ -184,7 +261,7 @@ function Home() {
             <SectionLabel>Bio</SectionLabel>
             <h2>Health Restoration<br />with <em>Annie DeNome</em></h2>
             <p>
-              I spent over 15 years searching for answers to acne, bloating, brain fog, and painful cycles. Paired Wellness is where that story turns outward to become a steady christ-centered guide for women who are ready to ask better questions.
+              I spent over 15 years searching for answers to acne, bloating, brain fog, and painful cycles. Paired Wellness is where that story turns outward to become a steady Christ-centered guide for women who are ready to ask better questions.
             </p>
             <blockquote>Nothing changed fast or alone. Everything changed when the whole story mattered.</blockquote>
             <EditorialLink to="/about">Read Annie’s story</EditorialLink>
@@ -234,6 +311,7 @@ function Home() {
           <div className="support-skin-heading">
             <h2>Support <em>the skin</em></h2>
             <p>Clean products on the outside. Root-cause work on the inside.</p>
+            <EditorialLink to="/skincare">See the skincare approach</EditorialLink>
           </div>
         </div>
       </section>
@@ -427,12 +505,12 @@ function Skincare() {
 }
 
 const guideTopics = [
-  ['01', 'Acne', 'The Acne Clarity Guide', 'A whole-picture framework for the questions and patterns that can sit underneath recurring breakouts.'],
-  ['02', 'Skincare', 'The Clean Swap Guide', 'A less-overwhelming way to audit your routine, understand product roles, and make changes one at a time.'],
-  ['03', 'Gut health', 'Gut Foundations', 'Simple explanations of digestion, regularity, food patterns, stress, and the everyday rhythms worth noticing first.'],
-  ['04', 'Foundational labs', 'Test, Don’t Guess', 'Questions to bring to a qualified practitioner and plain-language context for common wellness conversations.'],
-  ['05', 'Faith + rhythms', 'Stewardship Without Striving', 'Prayerful routines for caring for the body without turning wellness into fear, control, or perfectionism.'],
-  ['06', 'Everyday wellness', 'The Simple Start Handbook', 'A practical workbook for choosing a focus, noticing progress, and building habits that can live in real family life.'],
+  ['01', 'Acne', 'The Acne Clarity Guide', 'Why recurring breakouts are so often a whole-body conversation, what is worth testing before you buy one more product, and how to read the patterns your skin is showing you.', 'Free · releasing soon'],
+  ['02', 'Skincare', 'The Clean Swap Guide', 'A less-overwhelming way to audit your routine, understand product roles, and make changes one at a time.', 'Coming soon'],
+  ['03', 'Gut health', 'Gut Foundations', 'The in-depth one: digestion, stomach acid, absorption, bile flow, the gut’s reach into skin, mood, immunity, and hormones, and why “just take a probiotic” so rarely settles it.', 'In-depth · releasing soon'],
+  ['04', 'Foundational labs', 'Test, Don’t Guess', 'Questions to bring to a qualified practitioner and plain-language context for common wellness conversations.', 'Coming soon'],
+  ['05', 'Faith + rhythms', 'Stewardship Without Striving', 'Prayerful routines for caring for the body without turning wellness into fear, control, or perfectionism.', 'Coming soon'],
+  ['06', 'Everyday wellness', 'The Simple Start Handbook', 'A practical workbook for choosing a focus, noticing progress, and building habits that can live in real family life.', 'Coming soon'],
 ];
 
 function Guides() {
@@ -453,13 +531,13 @@ function Guides() {
 
       <section className="editorial-band guide-library">
         <div className="shell guide-rows">
-          {guideTopics.map(([number, label, title, text]) => (
+          {guideTopics.map(([number, label, title, text, status]) => (
             <article key={number}>
               <span className="guide-number">{number}</span>
               <p className="overline">{label}</p>
               <h2>{title}</h2>
               <p>{text}</p>
-              <span className="coming-soon">Coming soon</span>
+              <span className={`coming-soon${status === 'Coming soon' ? '' : ' highlighted'}`}>{status}</span>
             </article>
           ))}
         </div>
@@ -472,7 +550,7 @@ function Guides() {
             <SectionLabel>Help shape the library</SectionLabel>
             <h2>What do you wish someone had explained sooner?</h2>
             <p>Send Annie the question you keep searching. Your note may help shape a future guide or Health in the Spirit conversation.</p>
-            <EditorialLink to="mailto:annie@healthinthespirit.com?subject=Paired%20Wellness%20guide%20idea">Share a guide idea</EditorialLink>
+            <EditorialLink to="mailto:annie@healthinthespirit.com?subject=Paired%20Wellness%20guide%20idea" external>Share a guide idea</EditorialLink>
           </div>
         </div>
         <div className="shell guide-disclaimer">

@@ -1566,3 +1566,162 @@ h3 em {
     height: 300px;
   }
 }
+
+/* ==========================================================================
+   Polish pass — tactility, focus, and layout stability
+   Everything below refines how the existing editorial design *behaves*.
+   No colours, type, or composition are changed.
+   ========================================================================== */
+
+/* --- Keyboard focus -------------------------------------------------------
+   There was no visible focus state anywhere on the site. Anyone navigating by
+   keyboard was moving blind. One ring, used everywhere, sized off the ink. */
+:where(a, button, [tabindex]):focus-visible {
+  outline: 2px solid var(--ink);
+  outline-offset: 4px;
+  border-radius: 3px;
+}
+
+.site-header :where(a, button):focus-visible {
+  outline-offset: 6px;
+}
+
+/* --- Skip link ------------------------------------------------------------ */
+.skip-link {
+  position: fixed;
+  top: 12px;
+  left: 12px;
+  z-index: 200;
+  padding: 12px 20px;
+  border-radius: 999px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.01em;
+  transform: translateY(-160%);
+  transition: transform 200ms var(--ease);
+}
+
+.skip-link:focus-visible {
+  outline-offset: 3px;
+  transform: translateY(0);
+}
+
+/* --- Press feedback -------------------------------------------------------
+   `-webkit-tap-highlight-color: transparent` removes the grey flash iOS gives
+   for free, so every control has to earn its own press state or taps feel dead.
+   Scale is kept very small; this should read as firmness, not bounce. */
+.editorial-link,
+.desktop-nav a,
+.mobile-nav a,
+.menu-toggle,
+.contact-details a {
+  -webkit-touch-callout: none;
+  transition:
+    gap 180ms var(--ease),
+    color 180ms ease,
+    transform 120ms var(--ease),
+    opacity 120ms ease,
+    background-color 180ms ease;
+}
+
+.editorial-link:active,
+.desktop-nav a:active,
+.mobile-nav a:active,
+.contact-details a:active {
+  transform: scale(0.985);
+  opacity: 0.66;
+}
+
+.menu-toggle {
+  transition: transform 120ms var(--ease), background-color 180ms ease;
+}
+
+.menu-toggle:active {
+  transform: scale(0.92);
+  background: rgba(23, 24, 22, 0.06);
+}
+
+/* --- Touch target sizing --------------------------------------------------
+   Measured targets were 23–42px tall. iOS asks for 44pt. The extra height is
+   added as padding and pulled back with negative margin, so the visual rhythm
+   of the editorial layout is untouched while the tappable box grows. */
+@media (hover: none) and (pointer: coarse) {
+  .editorial-link {
+    padding-top: 14px;
+    padding-bottom: 12px;
+    margin-top: -6px;
+  }
+
+  .contact-details a,
+  .mobile-nav a {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+
+  .menu-toggle {
+    width: 46px;
+    height: 46px;
+  }
+
+  .header-brand {
+    display: inline-flex;
+    align-items: center;
+    min-height: 44px;
+  }
+}
+
+/* --- Anchor targets under the sticky header ------------------------------- */
+[id] {
+  scroll-margin-top: 96px;
+}
+
+/* --- Layout stability -----------------------------------------------------
+   Images now carry intrinsic width/height, so the box is reserved before the
+   file lands. The tinted ground keeps that reserved box from flashing white. */
+.editorial-figure img {
+  background-color: var(--blush);
+}
+
+/* --- Typographic finish ---------------------------------------------------
+   Stops headlines breaking one word onto a line of their own. */
+h1, h2, h3,
+.masthead-tagline,
+blockquote {
+  text-wrap: balance;
+}
+
+.long-copy p,
+.masthead-copy p,
+.bio-feature-copy p,
+.guide-feature-copy p {
+  text-wrap: pretty;
+}
+
+/* --- Overscroll ----------------------------------------------------------- */
+body {
+  overscroll-behavior-y: none;
+}
+
+/* --- Guide status pill ----------------------------------------------------
+   Distinguishes the two guides that are actually shipping from the four that
+   are still only planned. */
+.coming-soon.highlighted {
+  border-bottom-color: var(--moss);
+  color: var(--moss);
+}
+
+/* --- The "Support the skin" block now leads somewhere --------------------- */
+.support-skin-heading {
+  flex-wrap: wrap;
+  gap: 18px 32px;
+}
+
+@media (max-width: 720px) {
+  .support-skin-heading {
+    align-items: flex-start;
+    flex-direction: column;
+  }
+}
