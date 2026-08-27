@@ -5,7 +5,7 @@
   --blush: #f0eceb;
   --blush-deep: #e8e2df;
   --ink: #171816;
-  --muted: #5d5d58;
+  --muted: #4a4a44;
   --moss: #526247;
   --pear: #c9d675;
   --line: rgba(23, 24, 22, 0.22);
@@ -29,7 +29,7 @@ body {
   background: var(--paper);
   color: var(--ink);
   font-family: var(--sans);
-  font-size: 15px;
+  font-size: 16px;
   line-height: 1.65;
   -webkit-font-smoothing: antialiased;
   text-rendering: optimizeLegibility;
@@ -332,10 +332,10 @@ h3 em {
 
 .bio-feature {
   display: grid;
-  grid-template-columns: 1.08fr 0.88fr 0.36fr;
+  grid-template-columns: 1.02fr 0.98fr;
   align-items: center;
-  gap: 64px;
-  min-height: 660px;
+  gap: 72px;
+  min-height: 640px;
 }
 
 .bio-portrait {
@@ -1723,5 +1723,95 @@ body {
   .support-skin-heading {
     align-items: flex-start;
     flex-direction: column;
+  }
+}
+
+/* ==========================================================================
+   Polish pass 2 — brand logo lockup + readability
+   ========================================================================== */
+
+/* The "Health in the Spirit" wordmark is a logo, not a photograph. It was being
+   cropped to fill tall photo frames and desaturated, so only a giant fragment of
+   "HEALTH" showed and it read as broken. It now sits whole, in full colour,
+   centred on its own plate, and links to the podcast. */
+.logo-lockup {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: center;
+  gap: 30px;
+  padding: 60px clamp(28px, 5vw, 60px);
+  background: var(--paper);
+  border: 1px solid rgba(23, 24, 22, 0.12);
+}
+
+.logo-lockup-mark {
+  width: 100%;
+  max-width: 380px;
+  height: auto;
+  object-fit: contain;
+}
+
+.logo-lockup-note {
+  display: inline-flex;
+  align-items: center;
+  gap: 7px;
+  padding-bottom: 4px;
+  border-bottom: 1px solid currentColor;
+  font-family: var(--serif);
+  font-size: 15px;
+  color: var(--moss);
+  transition: gap 180ms var(--ease), opacity 140ms ease;
+}
+
+.logo-lockup-note:hover {
+  gap: 13px;
+}
+
+.logo-lockup-note:active {
+  opacity: 0.6;
+}
+
+.faith-lockup,
+.guide-lockup {
+  min-height: 410px;
+}
+
+/* Cormorant Garamond reads visually small; longer reading passages are lifted a
+   step, and --muted is darkened at the :root so the copy holds up on both the
+   paper and blush grounds. */
+.method-item > p,
+.journey-list p,
+.routine-list p,
+.skin-principles p,
+.guide-rows article > p:not(.overline) {
+  font-size: 16px;
+}
+
+.bio-feature-copy > p,
+.orchard-copy p {
+  font-size: 17px;
+}
+
+.belief-lines p,
+.contact-details p,
+.guide-disclaimer p,
+.guides-intro-grid > div:last-child > p {
+  font-size: 15px;
+}
+
+.editorial-figure figcaption {
+  font-size: 13px;
+}
+
+@media (max-width: 720px) {
+  .logo-lockup {
+    padding: 46px 28px;
+    gap: 24px;
+  }
+
+  .faith-lockup,
+  .guide-lockup {
+    min-height: 300px;
   }
 }

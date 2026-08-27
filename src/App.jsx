@@ -182,6 +182,30 @@ function Figure({ src, alt, caption, className = '', grayscale = false, priority
   );
 }
 
+function LogoLockup({ className = '', note = 'Listen to the podcast' }) {
+  return (
+    <div className={`logo-lockup ${className}`.trim()}>
+      <img
+        className="logo-lockup-mark"
+        src="/annie-ryan-formal.webp"
+        alt="Health in the Spirit"
+        width={1200}
+        height={390}
+        loading="lazy"
+        decoding="async"
+      />
+      <a
+        className="logo-lockup-note"
+        href="https://healthinthespirit.com/"
+        target="_blank"
+        rel="noreferrer"
+      >
+        {note} <ArrowUpRight size={14} aria-hidden="true" />
+      </a>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -266,13 +290,6 @@ function Home() {
             <blockquote>Nothing changed fast or alone. Everything changed when the whole story mattered.</blockquote>
             <EditorialLink to="/about">Read Annie’s story</EditorialLink>
           </div>
-          <Figure
-            src="/annie-ryan-formal.webp"
-            alt="Annie and Ryan DeNome, hosts of Health in the Spirit"
-            caption="Health in the Spirit"
-            className="bio-secondary"
-            grayscale
-          />
         </div>
       </section>
 
@@ -286,7 +303,7 @@ function Home() {
           <div className="method-grid">
             <article className="method-item method-item-one">
               <span className="editorial-number">01</span>
-              <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan in conversation" />
+              <Figure src="/annie/annie-staircase.jpg" alt="Annie DeNome" />
               <h3>Ask better questions</h3>
               <p>Skin, digestion, hormones, stress, sleep, and spiritual life deserve to be understood together.</p>
             </article>
@@ -403,7 +420,7 @@ function About() {
 
       <section className="faith-section">
         <div className="shell faith-grid">
-          <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan DeNome" caption="Faith and health at the same table" className="faith-image" grayscale />
+          <LogoLockup className="faith-lockup" note="Listen to Health in the Spirit" />
           <div>
             <SectionLabel>What guides this work</SectionLabel>
             <h2>Faith and health were never meant to be strangers.</h2>
@@ -545,7 +562,7 @@ function Guides() {
 
       <section className="guide-invitation">
         <div className="shell guide-invitation-grid">
-          <Figure src="/annie-ryan-formal.webp" alt="Annie and Ryan DeNome at Health in the Spirit" caption="At the kitchen table" className="guide-podcast-image" grayscale />
+          <LogoLockup className="guide-lockup" note="Listen to Health in the Spirit" />
           <div>
             <SectionLabel>Help shape the library</SectionLabel>
             <h2>What do you wish someone had explained sooner?</h2>
