@@ -215,7 +215,7 @@ function Footer() {
           <h2>Get in Touch</h2>
           <div className="contact-details">
             <p><span>Email</span><a href="mailto:annie@healthinthespirit.com">annie@healthinthespirit.com</a></p>
-            <p><span>Socials</span><a href="https://www.instagram.com/her.holy.terrain/" target="_blank" rel="noreferrer">@her.holy.terrain</a></p>
+            <p><span>Socials</span><a href="https://www.instagram.com/paired.wellness/" target="_blank" rel="noreferrer">@paired.wellness</a></p>
             <p><span>Listen</span><a href="https://healthinthespirit.com/" target="_blank" rel="noreferrer">Health in the Spirit</a></p>
           </div>
         </div>
@@ -485,7 +485,7 @@ function Skincare() {
               <p className="overline">Fresh skincare</p>
               <h3>RINGANA</h3>
               <p>Annie’s newest partnership, centered on skincare made with a fresh-first mindset. Annie is a Founding Partner.</p>
-              <EditorialLink to="https://www.instagram.com/her.holy.terrain/" external>Ask Annie about RINGANA</EditorialLink>
+              <EditorialLink to="https://www.instagram.com/paired.wellness/" external>Ask Annie about RINGANA</EditorialLink>
             </article>
             <Figure src="/botanical/paired-pear-hero.jpg" alt="Fresh pears in natural light" caption="Why fresh matters" className="partner-pear" />
           </div>
