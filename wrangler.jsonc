@@ -1,0 +1,30 @@
+{
+  // Static-assets Worker serving the Vite build. Deploy with:
+  //     npm run build && npx wrangler deploy
+  //
+  // Until this file existed the Worker was only ever deployed by hand, which
+  // is how the live site and this repo drifted apart. Deploying from here
+  // keeps the two in step.
+  "$schema": "node_modules/wrangler/config-schema.json",
+  "name": "paired-wellness",
+  "compatibility_date": "2026-08-01",
+  "workers_dev": true,
+
+  "assets": {
+    "directory": "./dist",
+    // React Router owns /about, /skincare, /guides — unmatched paths must
+    // fall back to index.html rather than 404.
+    "not_found_handling": "single-page-application"
+    // html_handling is left at its default (auto-trailing-slash), which is
+    // what serves /acne from acne.html and 307s /acne.html back to /acne.
+  },
+
+  // Two patterns, deliberately. The wildcard matches subdomains only — it is
+  // why www worked while the bare apex returned a 522 — so the apex needs its
+  // own entry. Routes listed here are authoritative on every deploy, so add
+  // new ones to this file rather than in the dashboard.
+  "routes": [
+    { "pattern": "thepairedwellness.com/*", "zone_name": "thepairedwellness.com" },
+    { "pattern": "*.thepairedwellness.com/*", "zone_name": "thepairedwellness.com" }
+  ]
+}
