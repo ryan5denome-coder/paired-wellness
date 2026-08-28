@@ -1,0 +1,316 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+<title>The Acne Guide — Paired Wellness</title>
+<meta name="description" content="A free 15-page guide on what actually drives acne when nothing topical has worked — and what is worth testing before you buy one more product.">
+<meta name="robots" content="index, follow">
+<link rel="canonical" href="https://thepairedwellness.com/acne">
+<link rel="icon" href="/favicon.svg" type="image/svg+xml">
+
+<meta property="og:type" content="website">
+<meta property="og:site_name" content="Paired Wellness">
+<meta property="og:title" content="You did not fail at skincare">
+<meta property="og:description" content="A free 15-page guide on what actually drives acne when nothing topical has worked.">
+<meta property="og:image" content="https://thepairedwellness.com/botanical/paired-pear-hero.jpg">
+<meta property="og:url" content="https://thepairedwellness.com/acne">
+<meta name="twitter:card" content="summary_large_image">
+
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:ital,wght@0,400;0,500;0,600;1,400&family=DM+Sans:wght@400;500;700&display=swap" rel="stylesheet">
+
+<style>
+  :root{
+    --petal:#F7F3ED; --ink:#082F2A; --body:#4A5A4E; --muted:#6E7A6E;
+    --moss:#557A45; --mist:#E4EBDA; --pear:#C9F05B; --line:#DDD7C9;
+    --serif:'Cormorant Garamond',Georgia,serif;
+    --sans:'DM Sans',-apple-system,BlinkMacSystemFont,'Segoe UI',sans-serif;
+  }
+  *{box-sizing:border-box}
+  html{-webkit-text-size-adjust:100%}
+  body{
+    margin:0;background:var(--petal);color:var(--ink);
+    font-family:var(--sans);font-size:16px;line-height:1.6;
+    -webkit-font-smoothing:antialiased;
+  }
+  img{max-width:100%;display:block}
+  .wrap{max-width:640px;margin:0 auto;padding:0 22px}
+
+  /* ---------- hero ---------- */
+  .hero{position:relative;padding:38px 0 0}
+  .eyebrow{
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:var(--muted);margin:0 0 18px;
+  }
+  h1{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(38px,10.5vw,58px);line-height:1.02;letter-spacing:-.01em;
+    margin:0 0 6px;text-wrap:balance;
+  }
+  h1 em{font-style:italic;color:var(--moss)}
+  .standfirst{
+    font-family:var(--serif);font-size:clamp(18px,4.6vw,22px);line-height:1.45;
+    color:var(--body);margin:16px 0 0;text-wrap:pretty;
+  }
+  .coverwrap{margin:30px auto 0;position:relative;max-width:330px}
+  .coverwrap img{
+    width:100%;height:auto;border-radius:3px;
+    border:1px solid var(--line);
+    box-shadow:0 22px 50px -20px rgba(8,47,42,.45);
+  }
+  .badge{
+    position:absolute;left:14px;bottom:14px;
+    background:var(--petal);color:var(--ink);
+    font-size:10.5px;font-weight:700;letter-spacing:.13em;text-transform:uppercase;
+    padding:9px 14px;border-radius:999px;
+  }
+
+  /* ---------- form ---------- */
+  .capture{
+    background:#fff;border:1px solid var(--line);border-radius:16px;
+    padding:26px 22px;margin:34px 0 0;
+  }
+  .capture h2{
+    font-family:var(--serif);font-weight:500;font-size:27px;line-height:1.15;
+    margin:0 0 8px;
+  }
+  .capture .note{font-size:14px;color:var(--muted);margin:0 0 20px}
+  label{
+    display:block;font-size:11px;font-weight:700;letter-spacing:.1em;
+    text-transform:uppercase;color:var(--muted);margin:0 0 7px;
+  }
+  input[type=text],input[type=email]{
+    width:100%;font-family:var(--sans);font-size:16px;color:var(--ink);
+    background:var(--petal);border:1px solid var(--line);border-radius:10px;
+    padding:14px 14px;margin:0 0 16px;min-height:50px;
+  }
+  input:focus-visible{outline:2px solid var(--moss);outline-offset:2px;border-color:transparent}
+  button{
+    width:100%;min-height:54px;cursor:pointer;
+    font-family:var(--sans);font-size:16px;font-weight:700;letter-spacing:.01em;
+    color:var(--petal);background:var(--ink);
+    border:0;border-radius:999px;padding:16px 20px;
+    transition:transform .12s ease,opacity .12s ease;
+  }
+  button:active{transform:scale(.985);opacity:.9}
+  button:focus-visible{outline:2px solid var(--moss);outline-offset:3px}
+  .privacy{font-size:12.5px;color:var(--muted);margin:14px 0 0;line-height:1.5}
+  .hp{position:absolute;left:-9999px;width:1px;height:1px;overflow:hidden}
+
+  /* ---------- sections ---------- */
+  section{padding:52px 0}
+  .rule{height:1px;background:var(--line);border:0;margin:0}
+  h2.sec{
+    font-family:var(--serif);font-weight:500;
+    font-size:clamp(28px,7vw,38px);line-height:1.08;margin:0 0 16px;text-wrap:balance;
+  }
+  p{margin:0 0 16px;color:var(--body);text-wrap:pretty}
+  p.lead{font-family:var(--serif);font-size:19px;line-height:1.5}
+
+  ol.contents{list-style:none;margin:26px 0 0;padding:0;counter-reset:c}
+  ol.contents li{
+    counter-increment:c;position:relative;
+    padding:0 0 20px 46px;margin:0 0 20px;border-bottom:1px solid var(--line);
+  }
+  ol.contents li:last-child{border-bottom:0;margin-bottom:0;padding-bottom:0}
+  ol.contents li::before{
+    content:counter(c,decimal-leading-zero);
+    position:absolute;left:0;top:1px;
+    font-family:var(--serif);font-size:15px;color:var(--moss);
+  }
+  ol.contents strong{
+    display:block;font-family:var(--serif);font-weight:600;
+    font-size:19px;line-height:1.25;color:var(--ink);margin:0 0 4px;
+  }
+  ol.contents span{font-size:14.5px;color:var(--muted);line-height:1.5}
+
+  .panel{
+    background:var(--mist);border-left:4px solid var(--moss);
+    border-radius:0 12px 12px 0;padding:24px 22px;margin:30px 0 0;
+  }
+  .panel h3{
+    font-family:var(--serif);font-weight:600;font-size:21px;line-height:1.2;
+    margin:0 0 8px;color:var(--ink);
+  }
+  .panel p{margin:0;font-size:15px}
+
+  .author{display:flex;gap:20px;align-items:flex-start;margin:26px 0 0}
+  .author img{width:104px;flex:0 0 104px;border-radius:10px}
+  .author p{font-size:15px;margin:0 0 12px}
+
+  footer{background:var(--ink);color:#CFDCC9;padding:40px 0;font-size:13px;line-height:1.6}
+  footer .wrap>p{color:#CFDCC9;margin:0 0 14px}
+  footer a{color:var(--pear)}
+  footer .brand{
+    font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;
+    color:#fff;margin:0 0 16px;
+  }
+  @media (prefers-reduced-motion:reduce){*{transition:none!important}}
+</style>
+</head>
+<body>
+
+<main>
+  <div class="hero">
+    <div class="wrap">
+      <p class="eyebrow">Free guide · Paired Wellness</p>
+      <h1>You did not fail<br>at <em>skincare</em>.</h1>
+      <p class="standfirst">
+        You were solving the wrong problem. A 15-page guide on what actually drives acne
+        when nothing topical has worked — and what is worth testing before you buy one more product.
+      </p>
+
+      <div class="coverwrap">
+        <img src="/guides/acne-guide-cover.jpg" alt="Cover of The Acne Guide by Annie DeNome" width="1020" height="1320" fetchpriority="high">
+        <span class="badge">15 pages · free</span>
+      </div>
+
+      <!-- ===================================================================
+           MAUTIC — form id 1 ("Guide Request", alias guide_requ) on
+           crm.thewellnesswaymason.com. Field aliases below match that form
+           exactly; guide_requested=acne is what routes the contact into the
+           "Acne Guide Leads" segment and its campaign.
+           =================================================================== -->
+      <div class="capture" id="get">
+        <h2>Where should I send it?</h2>
+        <p class="note">It lands in your inbox in a few minutes.</p>
+
+        <form id="guideform"
+              action="https://crm.thewellnesswaymason.com/form/submit?formId=1"
+              method="post">
+          <input type="hidden" name="mauticform[formId]" value="1">
+          <input type="hidden" name="mauticform[formName]" value="guide_requ">
+          <input type="hidden" name="mauticform[return]" value="https://thepairedwellness.com/acne-thank-you">
+          <input type="hidden" name="mauticform[messenger]" value="">
+          <input type="hidden" name="mauticform[guide_requested]" value="acne">
+          <input type="hidden" name="mauticform[attribution_source]"   id="a_source"   value="">
+          <input type="hidden" name="mauticform[attribution_medium]"   id="a_medium"   value="">
+          <input type="hidden" name="mauticform[attribution_campaign]" id="a_campaign" value="">
+          <input type="hidden" name="mauticform[attribution_content]"  id="a_content"  value="">
+
+          <label for="email">Email</label>
+          <input type="email" id="email" name="mauticform[email]"
+                 autocomplete="email" inputmode="email"
+                 placeholder="you@example.com" required>
+
+          <button type="submit" name="mauticform[submit]" value="1">Send me the guide</button>
+
+          <p class="privacy">
+            One email with the guide, then a short series about testing. Unsubscribe any time.
+            I will not sell or share your address.
+          </p>
+        </form>
+      </div>
+    </div>
+  </div>
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec">This is not another skincare routine.</h2>
+      <p class="lead">
+        Acne is a skin condition with whole-body inputs. Androgens tell your oil glands how much
+        to produce. Insulin changes how much androgen is free to act. Inflammation decides whether
+        a plugged pore stays quiet or turns into something sore.
+      </p>
+      <p>
+        None of that is decided on your face — which is why a topical works on the last step of a
+        process that started several steps earlier, and why good skincare helps and then stops
+        helping. Not because you chose wrong.
+      </p>
+
+      <div class="panel">
+        <h3>What this guide will not do</h3>
+        <p>
+          It will not diagnose you, sell you a supplement protocol, or promise clear skin in 30 days.
+          Where the evidence is weak, I say so — including about some things the wellness world
+          repeats confidently.
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec">What is inside.</h2>
+      <ol class="contents">
+        <li><strong>When acne is a doctor's visit</strong><span>The few presentations that get missed because everyone assumes acne is cosmetic.</span></li>
+        <li><strong>What stacks the load</strong><span>Androgens, insulin, stress, the gut, and what sits on your face all day.</span></li>
+        <li><strong>The part almost nobody checks</strong><span>The gut–skin axis, food reactions, and what is genuinely testable.</span></li>
+        <li><strong>Why nothing has held</strong><span>Four reasons a routine stops working that have nothing to do with picking wrong.</span></li>
+        <li><strong>Reading your own skin</strong><span>Comedonal, inflammatory, nodulocystic, fungal — and why face-mapping charts are not real.</span></li>
+        <li><strong>Why "your labs came back fine" isn't the end</strong><span>The three gaps a standard panel leaves, and the markers explained in plain language.</span></li>
+        <li><strong>What you can do at home</strong><span>Two full pages — your routine, plus the supplements that are documented to drive acne.</span></li>
+        <li><strong>Questions worth asking anyone</strong><span>Including me. If a practitioner cannot answer them plainly, that tells you something.</span></li>
+      </ol>
+    </div>
+  </section>
+
+  <hr class="rule">
+
+  <section>
+    <div class="wrap">
+      <h2 class="sec">Who wrote this.</h2>
+      <div class="author">
+        <img src="/annie-denome-portrait.webp" alt="Annie DeNome" width="1067" height="1600" loading="lazy">
+        <div>
+          <p>
+            I am Annie. My acne started when I was ten and did not grow out of me. I went to
+            dermatologists, an allergist, estheticians. I bought the routines and took supplements
+            because someone online said they worked.
+          </p>
+          <p>
+            It was not discipline I was short on. It was information — nobody had ever measured
+            anything. This guide is what I wish someone had handed me at nineteen.
+          </p>
+        </div>
+      </div>
+
+      <div class="panel">
+        <h3>Send it to me</h3>
+        <p style="margin-bottom:18px">Free, 15 pages, no protocol to buy.</p>
+        <a href="#get" style="display:inline-block;background:var(--ink);color:var(--petal);
+           text-decoration:none;font-weight:700;font-size:15px;padding:15px 28px;border-radius:999px">
+          Get the guide
+        </a>
+      </div>
+    </div>
+  </section>
+</main>
+
+<footer>
+  <div class="wrap">
+    <p class="brand">Paired Wellness</p>
+    <p>
+      Educational content, not medical advice. Annie DeNome is a wellness educator and is not a
+      licensed medical provider. Nothing here diagnoses, treats, or replaces care from your physician.
+    </p>
+    <p>
+      Annie is married to Dr. Ryan DeNome, D.C. of
+      <a href="https://thewellnesswaymason.com">The Wellness Way Mason</a>, and may be compensated
+      for referrals there. This is disclosed so you can weigh it for yourself.
+    </p>
+    <p style="margin:0"><a href="/">thepairedwellness.com</a></p>
+  </div>
+</footer>
+
+<script>
+  // Carry DM / campaign attribution into Mautic's hidden fields. Defaults make
+  // a bare link (the usual DM case) still attributable.
+  (function () {
+    try {
+      var p = new URLSearchParams(location.search);
+      var set = function (id, val) { var el = document.getElementById(id); if (el) el.value = val; };
+      set('a_source',   p.get('utm_source')   || 'direct');
+      set('a_medium',   p.get('utm_medium')   || 'dm');
+      set('a_campaign', p.get('utm_campaign') || 'acne-guide');
+      set('a_content',  p.get('utm_content')  || '');
+    } catch (e) { /* attribution is optional; never block the form */ }
+  })();
+</script>
+
+</body>
+</html>

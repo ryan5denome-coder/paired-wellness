@@ -9,3 +9,5 @@ dist/
 research/mobile-*.png
 research/*mobile*.png
 research/references/
+.vercel
+public/guides/paired-wellness-acne-guide.pdf
