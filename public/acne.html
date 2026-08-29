@@ -169,13 +169,20 @@
 
       <!-- ===================================================================
            MAUTIC — form id 1 ("Guide Request", alias guide_requ) on
-           crm.thewellnesswaymason.com. Field aliases below match that form
+           crm.thepairedwellness.com. Field aliases below match that form
            exactly; guide_requested=acne is what routes the contact into the
            "Acne Guide Leads" segment and its campaign.
+
+           The form's own Mautic action adds the submitter to that segment.
+           Delivery is deliberately NOT automatic right now: the campaign is
+           left unpublished while the guide is in final edits, so submitting
+           only collects the address. Publishing the campaign later sends the
+           guide to everyone who has accumulated in the segment — which is why
+           the copy here promises a guide that is coming, not one arriving now.
            =================================================================== -->
       <div class="capture" id="get">
         <h2>Where should I send it?</h2>
-        <p class="note">It lands in your inbox in a few minutes.</p>
+        <p class="note">The guide is in final edits. Leave your email and it comes to you first, the day it&rsquo;s ready.</p>
 
         <form id="guideform"
               action="https://crm.thepairedwellness.com/form/submit?formId=1"
@@ -195,10 +202,10 @@
                  autocomplete="email" inputmode="email"
                  placeholder="you@example.com" required>
 
-          <button type="submit" name="mauticform[submit]" value="1">Send me the guide</button>
+          <button type="submit" name="mauticform[submit]" value="1">Save my copy</button>
 
           <p class="privacy">
-            One email with the guide, then a short series about testing. Unsubscribe any time.
+            The guide the day it&rsquo;s ready, then a short series about testing. Unsubscribe any time.
             I will not sell or share your address.
           </p>
         </form>
