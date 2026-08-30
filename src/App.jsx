@@ -206,6 +206,62 @@ function LogoLockup({ className = '', note = 'Listen to the podcast' }) {
   );
 }
 
+/**
+ * Weekly newsletter opt-in.
+ *
+ * Posts natively to Mautic form 4 ("Newsletter Signup") on
+ * crm.thepairedwellness.com, the same way the acne landing page posts to form 1.
+ * The native POST is deliberate: this site is a static-assets Worker with no
+ * server route, and Mautic's submit endpoint sends no CORS headers, so a fetch
+ * from the browser would be blocked. The form's own Mautic action adds the
+ * contact to the "Newsletter Subscribers" segment, kept separate from the guide
+ * leads because this is a different consent and a different cadence.
+ *
+ * Verified end to end: submit returns 302 and the contact lands in the segment.
+ *
+ * The letter itself is still being written, so this copy promises a first issue
+ * that is coming, never one that is already sending.
+ */
+function NewsletterSignup() {
+  return (
+    <div className="newsletter-signup">
+      <SectionLabel>The weekly letter</SectionLabel>
+      <h2>One steady email a week.</h2>
+      <p>
+        Annie is building a weekly letter — what she’s learning, what the research actually says,
+        and the questions worth bringing to your own practitioner. It isn’t sending yet. Leave your
+        email and the first one comes to you.
+      </p>
+      <form action="https://crm.thepairedwellness.com/form/submit?formId=4" method="post">
+        <input type="hidden" name="mauticform[formId]" value="4" />
+        <input type="hidden" name="mauticform[formName]" value="newslettersignup" />
+        <input type="hidden" name="mauticform[return]" value="https://thepairedwellness.com/newsletter-thank-you" />
+        <input type="hidden" name="mauticform[messenger]" value="" />
+
+        <label className="visually-hidden" htmlFor="newsletter-email">Email address</label>
+        <div className="newsletter-row">
+          <input
+            id="newsletter-email"
+            type="email"
+            name="mauticform[email]"
+            required
+            autoComplete="email"
+            inputMode="email"
+            placeholder="you@email.com"
+          />
+          <button type="submit" name="mauticform[submit]" value="1">
+            Sign me up
+            <ArrowRight size={16} aria-hidden="true" />
+          </button>
+        </div>
+        <p className="newsletter-fine">
+          One email a week once it begins. Unsubscribe any time. Education, not medical advice.
+        </p>
+      </form>
+    </div>
+  );
+}
+
 function Footer() {
   return (
     <footer className="site-footer">
@@ -218,6 +274,7 @@ function Footer() {
             <p><span>Socials</span><a href="https://www.instagram.com/paired.wellness/" target="_blank" rel="noreferrer">@paired.wellness</a></p>
             <p><span>Listen</span><a href="https://healthinthespirit.com/" target="_blank" rel="noreferrer">Health in the Spirit</a></p>
           </div>
+          <NewsletterSignup />
         </div>
         <Figure
           src="/annie/annie-staircase.jpg"

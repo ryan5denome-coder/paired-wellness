@@ -1815,3 +1815,97 @@ body {
     min-height: 300px;
   }
 }
+
+/* ------------------------------------------------- newsletter opt-in (footer) */
+
+.visually-hidden {
+  position: absolute;
+  width: 1px;
+  height: 1px;
+  padding: 0;
+  margin: -1px;
+  overflow: hidden;
+  clip: rect(0, 0, 0, 0);
+  white-space: nowrap;
+  border: 0;
+}
+
+.newsletter-signup {
+  margin-top: 46px;
+  padding-top: 34px;
+  border-top: 1px solid rgba(23, 24, 22, 0.1);
+}
+
+.newsletter-signup h2 {
+  margin: 14px 0 12px;
+  font-family: var(--serif);
+  font-size: clamp(24px, 2.6vw, 30px);
+  line-height: 1.12;
+  font-weight: 400;
+}
+
+.newsletter-signup > p {
+  max-width: 52ch;
+  margin-bottom: 24px;
+  font-size: 15px;
+  line-height: 1.62;
+  color: var(--muted);
+}
+
+.newsletter-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.newsletter-row input {
+  flex: 1 1 220px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 180ms ease;
+}
+
+.newsletter-row input:focus-visible {
+  outline: none;
+  border-color: var(--moss);
+}
+
+.newsletter-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 24px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 180ms ease, gap 180ms var(--ease);
+}
+
+.newsletter-row button:hover {
+  background: var(--moss);
+  border-color: var(--moss);
+  gap: 16px;
+}
+
+.newsletter-fine {
+  margin-top: 16px;
+  font-size: 13px;
+  color: var(--muted);
+}
+
+@media (max-width: 720px) {
+  .newsletter-row button {
+    width: 100%;
+    justify-content: center;
+  }
+}
