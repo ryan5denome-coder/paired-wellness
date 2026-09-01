@@ -80,8 +80,8 @@ TEMPLATES = [
          preheader="Fifteen pages, and the one I would read first.",
          cta=("Read the guide", GUIDE_URL), blocks=[
              h1("Here it is."),
-             p("Thank you for asking for this. It runs to sixty pages, so save it for when you "
-               "can actually sit with it rather than skim it on your phone."),
+             p("Thank you for asking for this. Save it for when you can actually sit with it "
+               "rather than skim it on your phone."),
              p("If you only read one page today, make it the one about the gut. It is the part "
                "almost nobody checks, and it is where most of the useful answers have been — for "
                "me, and for the women I talk to."),
