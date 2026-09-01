@@ -578,6 +578,14 @@ function Skincare() {
   );
 }
 
+/**
+ * The opt-in is built and wired to Mautic, but stays hidden until the guide PDF
+ * is final and live at /guides/paired-wellness-acne-guide.pdf and the delivery
+ * campaign is published. Promising a guide we cannot deliver costs more trust
+ * than waiting costs signups. Flip to true to launch.
+ */
+const GUIDE_SIGNUP_LIVE = false;
+
 const guideTopics = [
   ['01', 'Acne', 'The Acne Clarity Guide', 'Why recurring breakouts are so often a whole-body conversation, what is worth testing before you buy one more product, and how to read the patterns your skin is showing you.', 'Free · releasing soon'],
   ['02', 'Skincare', 'The Clean Swap Guide', 'A less-overwhelming way to audit your routine, understand product roles, and make changes one at a time.', 'Coming soon'],
@@ -586,6 +594,114 @@ const guideTopics = [
   ['05', 'Faith + rhythms', 'Stewardship Without Striving', 'Prayerful routines for caring for the body without turning wellness into fear, control, or perfectionism.', 'Coming soon'],
   ['06', 'Everyday wellness', 'The Simple Start Handbook', 'A practical workbook for choosing a focus, noticing progress, and building habits that can live in real family life.', 'Coming soon'],
 ];
+
+/**
+ * Guide opt-in. Posts to our own Pages Function rather than to Mautic directly,
+ * so the visitor never leaves the page and the CRM hostname stays out of the
+ * page source. See functions/api/guide-signup.js.
+ */
+function GuideSignup({ guide = 'acne', title, blurb }) {
+  const [email, setEmail] = useState('');
+  const [website, setWebsite] = useState(''); // honeypot: real people never fill this
+  const [status, setStatus] = useState('idle'); // idle | sending | done | error
+  const [error, setError] = useState('');
+
+  const onSubmit = async (event) => {
+    event.preventDefault();
+    if (status === 'sending') return;
+
+    setStatus('sending');
+    setError('');
+
+    // Carry campaign attribution from the landing URL so each link can be
+    // measured separately. Absent params are simply omitted.
+    const params = new URLSearchParams(window.location.search);
+    const utm = {};
+    for (const key of ['utm_source', 'utm_medium', 'utm_campaign', 'utm_content']) {
+      const value = params.get(key);
+      if (value) utm[key] = value;
+    }
+
+    try {
+      const response = await fetch('/api/guide-signup', {
+        method: 'POST',
+        headers: { 'content-type': 'application/json' },
+        body: JSON.stringify({ email, guide, website, ...utm }),
+      });
+      const data = await response.json().catch(() => ({}));
+
+      if (response.ok && data.ok) {
+        setStatus('done');
+      } else {
+        setStatus('error');
+        setError(data.error || 'Something went wrong. Please try again.');
+      }
+    } catch {
+      setStatus('error');
+      setError('Something went wrong. Please try again.');
+    }
+  };
+
+  if (status === 'done') {
+    return (
+      <div className="guide-signup is-done">
+        <SectionLabel>Check your inbox</SectionLabel>
+        <h2>It’s on the way.</h2>
+        <p>
+          Your guide is heading to <strong>{email}</strong> right now. If it hasn’t arrived in a
+          few minutes, check your spam folder and mark it “not spam” so the next one lands.
+        </p>
+      </div>
+    );
+  }
+
+  return (
+    <div className="guide-signup">
+      <SectionLabel>Free guide</SectionLabel>
+      <h2>{title}</h2>
+      <p>{blurb}</p>
+
+      <form onSubmit={onSubmit} noValidate>
+        <label className="visually-hidden" htmlFor="guide-email">Email address</label>
+        <div className="guide-signup-row">
+          <input
+            id="guide-email"
+            type="email"
+            name="email"
+            required
+            autoComplete="email"
+            placeholder="you@email.com"
+            value={email}
+            onChange={(event) => setEmail(event.target.value)}
+            disabled={status === 'sending'}
+          />
+          <button type="submit" disabled={status === 'sending'}>
+            {status === 'sending' ? 'Sending…' : 'Send me the guide'}
+            <ArrowRight size={16} aria-hidden="true" />
+          </button>
+        </div>
+
+        {/* Honeypot. Hidden from people, irresistible to bots. */}
+        <input
+          type="text"
+          name="website"
+          tabIndex={-1}
+          autoComplete="off"
+          aria-hidden="true"
+          className="visually-hidden"
+          value={website}
+          onChange={(event) => setWebsite(event.target.value)}
+        />
+
+        {status === 'error' && <p className="guide-signup-error" role="alert">{error}</p>}
+
+        <p className="guide-signup-fine">
+          Education, not medical advice. Unsubscribe any time — no hard feelings.
+        </p>
+      </form>
+    </div>
+  );
+}
 
 function Guides() {
   return (
@@ -602,6 +718,18 @@ function Guides() {
           </div>
         </div>
       </section>
+
+      {GUIDE_SIGNUP_LIVE && (
+        <section className="guide-signup-band">
+          <div className="shell">
+            <GuideSignup
+              guide="acne"
+              title="The Acne Clarity Guide"
+              blurb="Sixty pages on why recurring breakouts are so rarely just a skin problem — what actually drives them, which tests are worth asking for, and which popular ones aren’t. Free, and yours in about a minute."
+            />
+          </div>
+        </section>
+      )}
 
       <section className="editorial-band guide-library">
         <div className="shell guide-rows">

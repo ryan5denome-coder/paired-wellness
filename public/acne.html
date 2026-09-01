@@ -168,41 +168,42 @@
       </div>
 
       <!-- ===================================================================
-           MAUTIC — form id 1 ("Guide Request", alias guide_requ) on
-           crm.thepairedwellness.com. Field aliases below match that form
-           exactly; guide_requested=acne is what routes the contact into the
-           "Acne Guide Leads" segment and its campaign.
+           Posts to /api/subscribe on this site's own Worker, which talks to
+           Brevo server-side. The API key never reaches the browser.
 
-           The form's own Mautic action adds the submitter to that segment.
-           Delivery is deliberately NOT automatic right now: the campaign is
-           left unpublished while the guide is in final edits, so submitting
-           only collects the address. Publishing the campaign later sends the
-           guide to everyone who has accumulated in the segment — which is why
-           the copy here promises a guide that is coming, not one arriving now.
+           A plain form post, not fetch(): this page opens in the Instagram
+           in-app browser, and a normal submit works even when scripts are
+           throttled. The Worker answers 303 to the thank-you page.
+
+           Delivery is deliberately NOT automatic right now. The Worker's
+           DELIVER_GUIDE var is "false" while the guide is in final edits, so
+           submitting only collects the address — which is why the copy here
+           promises a guide that is coming, not one arriving now. Flip that var
+           and send to the accumulated list when the PDF is live.
            =================================================================== -->
       <div class="capture" id="get">
         <h2>Where should I send it?</h2>
         <p class="note">The guide is in final edits. Leave your email and it comes to you first, the day it&rsquo;s ready.</p>
 
-        <form id="guideform"
-              action="https://crm.thepairedwellness.com/form/submit?formId=1"
-              method="post">
-          <input type="hidden" name="mauticform[formId]" value="1">
-          <input type="hidden" name="mauticform[formName]" value="guide_requ">
-          <input type="hidden" name="mauticform[return]" value="https://thepairedwellness.com/acne-thank-you">
-          <input type="hidden" name="mauticform[messenger]" value="">
-          <input type="hidden" name="mauticform[guide_requested]" value="acne">
-          <input type="hidden" name="mauticform[attribution_source]"   id="a_source"   value="">
-          <input type="hidden" name="mauticform[attribution_medium]"   id="a_medium"   value="">
-          <input type="hidden" name="mauticform[attribution_campaign]" id="a_campaign" value="">
-          <input type="hidden" name="mauticform[attribution_content]"  id="a_content"  value="">
+        <form id="guideform" action="/api/subscribe" method="post">
+          <input type="hidden" name="guide_requested" value="acne">
+          <input type="hidden" name="attribution_source"   id="a_source"   value="">
+          <input type="hidden" name="attribution_medium"   id="a_medium"   value="">
+          <input type="hidden" name="attribution_campaign" id="a_campaign" value="">
+          <input type="hidden" name="attribution_content"  id="a_content"  value="">
+
+          <!-- Honeypot: offscreen and not focusable, so only bots fill it. -->
+          <div aria-hidden="true" style="position:absolute;left:-9999px;top:auto;width:1px;height:1px;overflow:hidden">
+            <label for="website">Website</label>
+            <input type="text" id="website" name="website" tabindex="-1" autocomplete="off">
+          </div>
 
           <label for="email">Email</label>
-          <input type="email" id="email" name="mauticform[email]"
+          <input type="email" id="email" name="email"
                  autocomplete="email" inputmode="email"
                  placeholder="you@example.com" required>
 
-          <button type="submit" name="mauticform[submit]" value="1">Save my copy</button>
+          <button type="submit">Save my copy</button>
 
           <p class="privacy">
             The guide the day it&rsquo;s ready, then a short series about testing. Unsubscribe any time.
