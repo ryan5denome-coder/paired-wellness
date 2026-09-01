@@ -80,8 +80,8 @@ TEMPLATES = [
          preheader="Fifteen pages, and the one I would read first.",
          cta=("Read the guide", GUIDE_URL), blocks=[
              h1("Here it is."),
-             p("Thank you for asking for this. It runs to sixty pages, so save it for when you "
-               "can actually sit with it rather than skim it on your phone."),
+             p("Thank you for asking for this. It is fifteen pages and it will take about twenty "
+               "minutes, so save it for when you can actually sit with it."),
              p("If you only read one page today, make it the one about the gut. It is the part "
                "almost nobody checks, and it is where most of the useful answers have been — for "
                "me, and for the women I talk to."),
@@ -92,7 +92,7 @@ TEMPLATES = [
     dict(name="Acne Guide · 2 · The page most people skip",
          subject="The page most people skip",
          preheader="It is not the skincare one.",
-         cta=("Open the guide again", GUIDE_URL), blocks=[
+         cta=("Reread page six", GUIDE_URL), blocks=[
              h1("The page most people skip."),
              p("When people tell me which part of the guide landed, it is almost never the "
                "skincare pages. It is the one about food reactions — the quiet version."),
