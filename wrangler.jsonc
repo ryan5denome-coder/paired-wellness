@@ -40,6 +40,10 @@
   // `wrangler secret put` — never here, this file is in git.
   "vars": {
     "SITE_URL": "https://thepairedwellness.com",
+    // "false" until the guide PDF is live. Signups are still collected — they
+    // land at NURTURE_STAGE 0, which the nurture cron ignores — so nobody is
+    // emailed a guide that does not exist yet. Flip to "true" and redeploy.
+    "DELIVER_GUIDE": "false",
     "TEMPLATE_DELIVERY": "1",
     "TEMPLATE_DAY2": "2",
     "TEMPLATE_DAY5": "3"

@@ -232,24 +232,20 @@ function NewsletterSignup() {
         and the questions worth bringing to your own practitioner. It isn’t sending yet. Leave your
         email and the first one comes to you.
       </p>
-      <form action="https://crm.thepairedwellness.com/form/submit?formId=4" method="post">
-        <input type="hidden" name="mauticform[formId]" value="4" />
-        <input type="hidden" name="mauticform[formName]" value="newslettersignup" />
-        <input type="hidden" name="mauticform[return]" value="https://thepairedwellness.com/newsletter-thank-you" />
-        <input type="hidden" name="mauticform[messenger]" value="" />
+      <form action="/api/newsletter" method="post">
 
         <label className="visually-hidden" htmlFor="newsletter-email">Email address</label>
         <div className="newsletter-row">
           <input
             id="newsletter-email"
             type="email"
-            name="mauticform[email]"
+            name="email"
             required
             autoComplete="email"
             inputMode="email"
             placeholder="you@email.com"
           />
-          <button type="submit" name="mauticform[submit]" value="1">
+          <button type="submit">
             Sign me up
             <ArrowRight size={16} aria-hidden="true" />
           </button>
@@ -579,12 +575,18 @@ function Skincare() {
 }
 
 /**
- * The opt-in is built and wired to Mautic, but stays hidden until the guide PDF
- * is final and live at /guides/paired-wellness-acne-guide.pdf and the delivery
- * campaign is published. Promising a guide we cannot deliver costs more trust
- * than waiting costs signups. Flip to true to launch.
+ * The opt-in collects emails now, while the guide is still in final edits.
+ *
+ * Nothing is delivered automatically: the Worker's DELIVER_GUIDE var is "false",
+ * so a signup only lands the contact in the Brevo "Acne Guide Leads" list at
+ * NURTURE_STAGE 0. Flipping that var starts delivery, and the nurture cron then
+ * picks the list up from stage 1.
+ *
+ * Because of that, every string here promises a guide that is coming, never one
+ * that is arriving now. If you make this deliver immediately, update the success
+ * copy and the button with it.
  */
-const GUIDE_SIGNUP_LIVE = false;
+const GUIDE_SIGNUP_LIVE = true;
 
 const guideTopics = [
   ['01', 'Acne', 'The Acne Clarity Guide', 'Why recurring breakouts are so often a whole-body conversation, what is worth testing before you buy one more product, and how to read the patterns your skin is showing you.', 'Free · releasing soon'],
@@ -645,11 +647,13 @@ function GuideSignup({ guide = 'acne', title, blurb }) {
   if (status === 'done') {
     return (
       <div className="guide-signup is-done">
-        <SectionLabel>Check your inbox</SectionLabel>
-        <h2>It’s on the way.</h2>
+        <SectionLabel>You’re on the list</SectionLabel>
+        <h2>Thank you — your spot is saved.</h2>
         <p>
-          Your guide is heading to <strong>{email}</strong> right now. If it hasn’t arrived in a
-          few minutes, check your spam folder and mark it “not spam” so the next one lands.
+          We have <strong>{email}</strong>. The Acne Clarity Guide is still being finished, so it
+          isn’t in your inbox yet — Annie is going through it one more time to make sure every
+          claim in it is one she can stand behind. You’ll be among the first to receive it the
+          day it’s ready.
         </p>
       </div>
     );
@@ -657,7 +661,7 @@ function GuideSignup({ guide = 'acne', title, blurb }) {
 
   return (
     <div className="guide-signup">
-      <SectionLabel>Free guide</SectionLabel>
+      <SectionLabel>Free guide · releasing soon</SectionLabel>
       <h2>{title}</h2>
       <p>{blurb}</p>
 
@@ -676,7 +680,7 @@ function GuideSignup({ guide = 'acne', title, blurb }) {
             disabled={status === 'sending'}
           />
           <button type="submit" disabled={status === 'sending'}>
-            {status === 'sending' ? 'Sending…' : 'Send me the guide'}
+            {status === 'sending' ? 'Saving…' : 'Save my copy'}
             <ArrowRight size={16} aria-hidden="true" />
           </button>
         </div>
@@ -696,6 +700,7 @@ function GuideSignup({ guide = 'acne', title, blurb }) {
         {status === 'error' && <p className="guide-signup-error" role="alert">{error}</p>}
 
         <p className="guide-signup-fine">
+          Leave your email and we’ll send it the day it’s ready — no other list, no spam.
           Education, not medical advice. Unsubscribe any time — no hard feelings.
         </p>
       </form>
@@ -725,7 +730,7 @@ function Guides() {
             <GuideSignup
               guide="acne"
               title="The Acne Clarity Guide"
-              blurb="Sixty pages on why recurring breakouts are so rarely just a skin problem — what actually drives them, which tests are worth asking for, and which popular ones aren’t. Free, and yours in about a minute."
+              blurb="Sixty pages on why recurring breakouts are so rarely just a skin problem — what actually drives them, which tests are worth asking for, and which popular ones aren’t. It’s in final edits now. Leave your email and it comes to you first, the day it’s ready."
             />
           </div>
         </section>

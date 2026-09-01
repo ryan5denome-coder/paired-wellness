@@ -14,8 +14,11 @@
  */
 
 const BREVO = "https://api.brevo.com/v3";
-const LIST_ID = 3;                      // Acne Guide Leads
+const LIST_ACNE = 3;                    // Acne Guide Leads
+const LIST_NEWSLETTER = 4;              // Weekly Newsletter
 const THANK_YOU = "/acne-thank-you";
+const NEWSLETTER_THANK_YOU = "/newsletter-thank-you";
+const KNOWN_GUIDES = new Set(["acne", "gut"]);
 const DAY = 86400000;
 
 // Nurture steps: how many days after signup, and which template to send.
@@ -77,7 +80,42 @@ async function sendTemplate(env, email, templateId, extraParams = {}) {
   });
 }
 
-// --- POST /api/subscribe ---------------------------------------------------
+// --- signup ---------------------------------------------------------------
+// Shared by the static /acne page (form post) and the React guide component
+// (JSON fetch). Same contact shape either way.
+async function addGuideContact(env, { email, guide, utm }) {
+  const attributes = {
+    GUIDE_REQUESTED: guide,
+    ATTRIBUTION_SOURCE: utm.source || "direct",
+    ATTRIBUTION_MEDIUM: utm.medium || "none",
+    ATTRIBUTION_CAMPAIGN: utm.campaign || `${guide}-guide`,
+    ATTRIBUTION_CONTENT: utm.content || "",
+    SIGNUP_DATE: new Date().toISOString().slice(0, 10),
+    // Stage 0 means "collected, nothing sent". The nurture cron only picks up
+    // contacts at stage 1 or higher, so nobody is mailed until the guide ships.
+    NURTURE_STAGE: env.DELIVER_GUIDE === "true" ? 1 : 0,
+  };
+
+  // updateEnabled lets a repeat signup refresh attribution instead of 400ing on
+  // duplicate_parameter. Someone who asks twice should still get the guide.
+  await brevo(env, "/contacts", {
+    method: "POST",
+    body: { email, attributes, listIds: [LIST_ACNE], updateEnabled: true },
+  });
+
+  // The guide is still in final edits. Collect the address, promise nothing,
+  // and send when DELIVER_GUIDE flips — the landing copy says "coming", and an
+  // email saying "here it is" with a dead PDF link costs more than the wait.
+  if (env.DELIVER_GUIDE === "true") {
+    await sendTemplate(env, email, Number(env.TEMPLATE_DELIVERY));
+  }
+}
+
+function validEmail(e) {
+  return /^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(e);
+}
+
+// POST /api/subscribe — plain form post from the static /acne page.
 async function handleSubscribe(request, env) {
   const form = await request.formData();
   const get = (k) => (form.get(k) || "").toString().trim();
@@ -86,29 +124,76 @@ async function handleSubscribe(request, env) {
   if (get("website")) return Response.redirect(env.SITE_URL + THANK_YOU, 303);
 
   const email = get("email").toLowerCase();
-  if (!/^[^@\s]+@[^@\s]+\.[^@\s]+$/.test(email)) {
+  if (!validEmail(email)) {
     return new Response("A valid email address is required.", { status: 400 });
   }
 
-  const attributes = {
-    GUIDE_REQUESTED: get("guide_requested") || "acne",
-    ATTRIBUTION_SOURCE: get("attribution_source") || "direct",
-    ATTRIBUTION_MEDIUM: get("attribution_medium") || "none",
-    ATTRIBUTION_CAMPAIGN: get("attribution_campaign") || "acne-guide",
-    ATTRIBUTION_CONTENT: get("attribution_content") || "",
-    SIGNUP_DATE: new Date().toISOString().slice(0, 10),
-    NURTURE_STAGE: 1,
-  };
+  await addGuideContact(env, {
+    email,
+    guide: get("guide_requested") || "acne",
+    utm: {
+      source: get("attribution_source"),
+      medium: get("attribution_medium"),
+      campaign: get("attribution_campaign"),
+      content: get("attribution_content"),
+    },
+  });
+  return Response.redirect(env.SITE_URL + THANK_YOU, 303);
+}
 
-  // updateEnabled lets a repeat signup refresh attribution instead of 400ing on
-  // duplicate_parameter. Someone who asks twice should still get the guide.
+// POST /api/guide-signup — JSON, from the React component, which renders its
+// own success state rather than navigating. Kept as its own route because the
+// contract (JSON in, {ok:true} out) is what the component already expects.
+async function handleGuideSignup(request, env) {
+  const body = await request.json().catch(() => ({}));
+  const json = (obj, status = 200) =>
+    new Response(JSON.stringify(obj), {
+      status, headers: { "content-type": "application/json" },
+    });
+
+  if ((body.website || "").trim()) return json({ ok: true });
+
+  const email = (body.email || "").trim().toLowerCase();
+  if (!validEmail(email)) return json({ error: "Please enter a valid email address." }, 400);
+
+  const guide = (body.guide || "acne").trim();
+  if (!KNOWN_GUIDES.has(guide)) return json({ error: "Unknown guide." }, 400);
+
+  try {
+    await addGuideContact(env, {
+      email, guide,
+      utm: {
+        source: body.utm_source, medium: body.utm_medium,
+        campaign: body.utm_campaign, content: body.utm_content,
+      },
+    });
+    return json({ ok: true });
+  } catch (err) {
+    console.error(`guide-signup failed: ${err.message}`);
+    return json({ error: "Something went wrong. Please try again." }, 502);
+  }
+}
+
+// POST /api/newsletter — footer opt-in. Its own list, no guide attributes.
+async function handleNewsletter(request, env) {
+  const form = await request.formData();
+  const get = (k) => (form.get(k) || "").toString().trim();
+  if (get("website")) return Response.redirect(env.SITE_URL + NEWSLETTER_THANK_YOU, 303);
+
+  const email = get("email").toLowerCase();
+  if (!validEmail(email)) {
+    return new Response("A valid email address is required.", { status: 400 });
+  }
   await brevo(env, "/contacts", {
     method: "POST",
-    body: { email, attributes, listIds: [LIST_ID], updateEnabled: true },
+    body: {
+      email,
+      attributes: { SIGNUP_DATE: new Date().toISOString().slice(0, 10) },
+      listIds: [LIST_NEWSLETTER],
+      updateEnabled: true,
+    },
   });
-
-  await sendTemplate(env, email, Number(env.TEMPLATE_DELIVERY));
-  return Response.redirect(env.SITE_URL + THANK_YOU, 303);
+  return Response.redirect(env.SITE_URL + NEWSLETTER_THANK_YOU, 303);
 }
 
 // --- GET /api/unsubscribe --------------------------------------------------
@@ -141,7 +226,7 @@ async function runNurture(env) {
   const now = Date.now();
   let offset = 0, sent = 0;
   for (;;) {
-    const page = await brevo(env, `/contacts/lists/${LIST_ID}/contacts?limit=50&offset=${offset}`);
+    const page = await brevo(env, `/contacts/lists/${LIST_ACNE}/contacts?limit=50&offset=${offset}`);
     const contacts = page?.contacts || [];
     if (!contacts.length) break;
 
@@ -189,6 +274,19 @@ export default {
         // and let the log carry the failure.
         console.error(`subscribe failed: ${err.message}`);
         return Response.redirect(env.SITE_URL + THANK_YOU, 303);
+      }
+    }
+
+    if (url.pathname === "/api/guide-signup" && request.method === "POST") {
+      return handleGuideSignup(request, env);
+    }
+
+    if (url.pathname === "/api/newsletter" && request.method === "POST") {
+      try {
+        return await handleNewsletter(request, env);
+      } catch (err) {
+        console.error(`newsletter failed: ${err.message}`);
+        return Response.redirect(env.SITE_URL + NEWSLETTER_THANK_YOU, 303);
       }
     }
 
