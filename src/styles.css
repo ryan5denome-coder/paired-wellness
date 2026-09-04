@@ -1909,3 +1909,115 @@ body {
     justify-content: center;
   }
 }
+
+/* ------------------------------------------------------------ guide opt-in */
+/* The band is the only thing in its section, so it carries the section's own
+   breathing room rather than sitting flush against the guide library below. */
+.guide-signup-band {
+  padding: clamp(64px, 9vw, 108px) 0;
+  background: var(--paper);
+  border-top: 1px solid rgba(23, 24, 22, 0.08);
+  border-bottom: 1px solid rgba(23, 24, 22, 0.08);
+}
+
+.guide-signup {
+  max-width: 62ch;
+  margin: 0 auto;
+  padding: clamp(28px, 4vw, 44px) 0;
+  text-align: center;
+}
+
+.guide-signup h2 {
+  margin: 16px 0 14px;
+  font-family: var(--serif);
+  font-size: clamp(26px, 3vw, 34px);
+  line-height: 1.12;
+  font-weight: 400;
+}
+
+.guide-signup > p {
+  max-width: 54ch;
+  margin: 0 auto 30px;
+  font-size: 15px;
+  line-height: 1.68;
+  color: var(--muted);
+}
+
+.guide-signup-row {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+  justify-content: center;
+  max-width: 30rem;
+  margin: 0 auto;
+}
+
+.guide-signup-row input {
+  flex: 1 1 220px;
+  padding: 13px 16px;
+  border: 1px solid var(--line);
+  border-radius: 2px;
+  background: var(--paper);
+  font-family: var(--sans);
+  font-size: 15px;
+  color: var(--ink);
+  transition: border-color 180ms ease;
+}
+
+.guide-signup-row input:focus-visible {
+  outline: none;
+  border-color: var(--moss);
+}
+
+.guide-signup-row button {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  padding: 13px 26px;
+  border: 1px solid var(--ink);
+  border-radius: 2px;
+  background: var(--ink);
+  color: var(--paper);
+  font-family: var(--sans);
+  font-size: 14px;
+  letter-spacing: 0.02em;
+  cursor: pointer;
+  transition: background 180ms ease, gap 180ms var(--ease);
+}
+
+.guide-signup-row button:hover:not(:disabled) {
+  background: var(--moss);
+  border-color: var(--moss);
+  gap: 16px;
+}
+
+.guide-signup-row button:disabled {
+  opacity: 0.6;
+  cursor: default;
+}
+
+.guide-signup-error {
+  margin-top: 14px;
+  font-size: 14px;
+  color: #8f3a2f;
+}
+
+.guide-signup-fine {
+  margin-top: 18px;
+  font-size: 13px;
+  line-height: 1.6;
+  color: var(--muted);
+}
+
+/* The success state replaces the form, so it needs its own vertical rhythm
+   rather than inheriting the row's. */
+.guide-signup.is-done > p {
+  margin-bottom: 0;
+}
+
+@media (max-width: 720px) {
+  .guide-signup-row button {
+    width: 100%;
+    justify-content: center;
+  }
+}

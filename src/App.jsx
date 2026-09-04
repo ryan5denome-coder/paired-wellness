@@ -730,7 +730,7 @@ function Guides() {
             <GuideSignup
               guide="acne"
               title="The Acne Clarity Guide"
-              blurb="Sixty pages on why recurring breakouts are so rarely just a skin problem — what actually drives them, which tests are worth asking for, and which popular ones aren’t. It’s in final edits now. Leave your email and it comes to you first, the day it’s ready."
+              blurb="Why recurring breakouts are so rarely just a skin problem — what actually drives them, which tests are worth asking for, and which popular ones aren’t. It’s in final edits now. Leave your email and it comes to you first, the day it’s ready."
             />
           </div>
         </section>
